@@ -1,0 +1,56 @@
+@charset "utf-8";
+/* CSS Document */
+
+span.glyphicon {
+	font-size: 3.5em;
+}
+span.sm {
+	font-size: 1em;
+}
+.col-centered {
+	text-align:center
+}
+.test {
+	width:90px;
+	height:90px;
+	background: #3F3F3F;
+	padding: 3px;
+	padding-top:15px;
+	border-radius: 100%;
+	color: white;
+	text-align:center;
+	font-size: 3.5em;
+}
+a.btn {
+	text-align: left;
+}
+.dropdown-menu {
+	float:right;
+}
+.dropdown-menu {
+	left: 200px;
+	top:-5px;
+	border-radius: 6px 0px 6px 6px;
+}
+
+
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+body{
+  /* Margin bottom by footer height */
+  margin-bottom: 60px;
+}
+
+.footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  /* Set the fixed height of the footer here */
+  height: 60px;
+  background-color: #f5f5f5;
+}
+
+.text-muted {padding-top:10px}

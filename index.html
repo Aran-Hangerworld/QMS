@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Hangerworld - Quality Management System</title>
+
+<!-- Bootstrap -->
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+
+<!-- Optional theme -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap-theme.min.css">
+
+<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+<!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+<style type="text/css">
+span.glyphicon {
+	font-size: 3.5em;
+}
+span.sm {
+	font-size: 1em;
+}
+.col-centered {
+	text-align:center
+}
+.test {
+	width:90px;
+	height:90px;
+	background: #3F3F3F;
+	padding: 3px;
+	padding-top:15px;
+	border-radius: 100%;
+	color: white;
+	text-align:center;
+	font-size: 3.5em;
+}
+a.btn {
+	text-align: left;
+}
+.dropdown-menu {
+	float:right;
+}
+.dropdown-menu {
+	left: 200px;
+	top:-5px;
+	border-radius: 6px 0px 6px 6px;
+}
+
+
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+body{
+  /* Margin bottom by footer height */
+  margin-bottom: 60px;
+}
+
+.footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  /* Set the fixed height of the footer here */
+  height: 60px;
+  background-color: #f5f5f5;
+}
+
+.text-muted {padding-top:10px}
+</style>
+</head>
+<body>
+<nav class="navbar navbar-inverse">
+  <div class="container">
+    <div class="navbar-header"> <a class="navbar-brand" href="index.html">Company Name QMS</a></div>
+    <div>
+      <ul class="nav navbar-nav">
+        <li class="active"><a href="#">Home</a></li>
+        <li><a href="#">Website</a></li>
+        <li><a href="#">FAQ</a></li>
+        <li><a href="#">Training</a></li>
+      </ul>
+    </div>
+	<div class="pull-right">
+          <ul class="nav navbar-nav">
+        <li><a href="#"><span class="glyphicon glyphicon-log-in sm"></span> Log in</a></li>
+      </ul>
+	</div>
+  </div>
+</nav>
+<div class="container">
+<div class="row">
+  <div class="col-md-12">
+    <div class="alert alert-warning alert-dismissable text-center"> This could contain update information or any other kind of warning or message. The X can be clicked to close it too!
+      <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+    </div>
+  </div>
+  <div class="col-md-3 col-sm-12">
+    <div class="btn-group-vertical"><b>System Navigation</b> <a href="#" class="btn btn-default btn-block text-left"><span class="glyphicon sm glyphicon-book"></span>&nbsp;&nbsp; Integrated Manual</a> <a href="page.html" class="btn btn-default btn-block "><span class="glyphicon sm glyphicon-ok-circle"></span>&nbsp;&nbsp; Policies</a>
+      <div class="btn-group-vertical"> <a href="#" class="btn btn-default btn-block text-left" style="width:205px" data-toggle="dropdown"> <span class="glyphicon sm glyphicon-list-alt"></span>&nbsp;&nbsp; Registers <span class="caret"></span> </a>
+        <ul class="dropdown-menu">
+          <li><a href="#">Example link 1</a></li>
+          <li><a href="#">Example link 2</a></li>
+        </ul>
+      </div>
+      <a href="#" class="btn btn-default btn-block"><span class="glyphicon sm glyphicon-random"></span>&nbsp;&nbsp; Operational Control</a> <a href="#" class="btn btn-default btn-block"><span class="glyphicon sm glyphicon-tasks"></span>&nbsp;&nbsp; Work Instructions</a> <a href="#" class="btn btn-default btn-block"><span class="glyphicon sm glyphicon-leaf"></span>&nbsp;&nbsp; Environmental Guidance</a> <a href="#" class="btn btn-default btn-block"><span class="glyphicon sm glyphicon-file"></span>&nbsp; Forms &amp; Records</a> <a href="#" class="btn btn-default btn-block"><span class="glyphicon sm glyphicon-flash"></span>&nbsp;&nbsp; Risk Assessment</a> <a href="#" class="btn btn-default btn-block"><span class="glyphicon sm glyphicon-fire"></span>&nbsp;&nbsp; COSHH</a> <a href="#" class="btn btn-default btn-block"><span class="glyphicon sm glyphicon-cog"></span>&nbsp;&nbsp; Performance</a> <a href="#" class="btn btn-default btn-block"><span class="glyphicon sm glyphicon-list"></span>&nbsp;&nbsp; Audit Records</a> <a href="#" class="btn btn-default btn-block"><span class="glyphicon sm glyphicon-user"></span>&nbsp;&nbsp; Management Reviews</a> <a href="#" class="btn btn-success btn-block"><span class="glyphicon sm glyphicon-folder-open"></span>&nbsp;&nbsp; HSE Guidance Leaflets<br />
+      <small>(To be used for reference only)</small></a> </div>
+  </div>
+  <div class="col-md-9 col-sm-12">
+    <div class="jumbotron">
+      <h1>Quality Management</h1>
+      <p>Quality management ensures that an organization, product or service is consistent. It has four main components: quality planning, quality control, quality assurance and quality improvement.</p>
+    </div>
+    <div class="row">
+      <div class="col-md-3 col-sm-6 col-centered"> <span class="glyphicon glyphicon-user test"></span><br />
+        <h4>Customer Services</h4>
+      </div>
+      <div class="col-md-3 col-sm-6 col-centered"> <span class="glyphicon glyphicon-ok test"></span><br />
+        <h4>QMS</h4>
+      </div>
+      <div class="col-md-3 col-sm-6 col-centered"> <span class="glyphicon glyphicon-th-large test"></span><br />
+        <h4>Memos</h4>
+      </div>
+      <div class="col-md-3 col-sm-6 col-centered"> <span class="glyphicon glyphicon-link test"></span><br />
+        <h4>Other?</h4>
+      </div>
+    </div>
+ 
+    <div class="row">
+      <div class="divider"></div>
+      <div class="col-md-12 col-sm-12">
+        <hr class="small">
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi feugiat urna sit amet laoreet ultricies. Vivamus vel ornare lectus. Duis imperdiet neque a interdum interdum. Cras gravida, nibh vitae lacinia pharetra, enim tortor aliquet eros, id gravida ante mauris a arcu. Mauris fermentum tincidunt nisi, eget volutpat justo facilisis nec. Pellentesque volutpat ultrices ultrices. </p>
+        <p>In non imperdiet turpis. Nam enim est, vulputate ut elit sed, bibendum vehicula orci. Nullam imperdiet ipsum euismod cursus malesuada. Sed lectus velit, convallis a justo vel, pulvinar vestibulum urna. Fusce vitae pretium leo, sed eleifend diam. Nulla semper eu quam ut sollicitudin. Curabitur dictum ante et ornare fermentum. Morbi eleifend placerat nisl, ut finibus nibh elementum eget. Ut quis dapibus urna. Cras a libero aliquam, maximus nibh nec, mattis leo.</p>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+<footer class="footer">
+  <div class="container" style="padding-top:10px"> 
+  	<div class="hidden-sx col-md-12">
+    	<span class="text-muted">Quality Management System Copyright &copy; 2014 Harmony Resources Ltd.</span> <span class="pull-right"><span class="glyphicon glyphicon-earphone sm"></span>&nbsp;&nbsp; Contact Support</span> 
+  	</div>
+  </div>
+</footer>
+<!-- jQuery (necessary for Bootstrap's JavaScript plugins) --> 
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script> 
+<!-- Include all compiled plugins (below), or include individual files as needed --> 
+<!-- Latest compiled and minified JavaScript --> 
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
+</body>
+</html>
