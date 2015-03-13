@@ -10,8 +10,7 @@ try {
 	    print "Error!: " . $e->getMessage();
     }
 	$msth = $db->prepare('CALL GetMessage(?)');
-	$contenttype = $pt;
-	$msth->bindparam(1, $contenttype, PDO::PARAM_STR);
+	$msth->bindparam(1, $pt, PDO::PARAM_STR);
 	$msth->execute();
 	while ($row = $msth->fetch()){
 		?>

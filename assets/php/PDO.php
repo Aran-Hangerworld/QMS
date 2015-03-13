@@ -1,5 +1,5 @@
 <?php
 $hostname ='localhost';
-$username ='web151-hangstore';
+$username ='hangerwo_0052';
 $password = 'HaNgErStOrE1920';
 ?>
