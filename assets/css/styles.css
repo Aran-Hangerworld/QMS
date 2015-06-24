@@ -21,6 +21,18 @@ span.sm {
 	text-align:center;
 	font-size: 3.5em;
 }
+.adminicons {
+	width:60px;
+	height:60px;
+	background: #3F3F3F;
+	padding: 3px;
+	padding-top:10px;
+	border-radius: 100%;
+	color: white;
+	text-align:center;
+	color: white;
+}
+
 a.btn {
 	text-align: left;
 }

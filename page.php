@@ -1,8 +1,10 @@
-<?php include 'assets/php/PDO.php'; ?>
+<?php 
+ session_start();
+include 'assets/php/PDO.php'; ?>
 <?php include 'assets/php/header.php'; ?>
 <?php include 'assets/php/nav.php'; ?>
-<?php include 'assets/php/loginbox.php'; ?>
-<?php include 'assets/php/scanforfiles.php'; ?>
+<?php include 'assets/php/loginform.php'; ?>
+
 
 <div class="container">
 	<div class="row">
@@ -14,51 +16,59 @@
         </div>
   <div class="col-md-9 col-sm-12">
   <?php
-  	$pt = htmlspecialchars($_GET['Type']);
+  	$pt = htmlspecialchars($_GET['type']);
 try {
-	
+		$db = new PDO("mysql:host=$hostname;dbname=$username", $username, $password);	
 	} catch(Exception $e)  {
 	    print "Error!: " . $e->getMessage();
     }
 
-	$sth = $db->prepare('CALL GetContent(?)');
-	$contenttype = $pt;
-	$sth->bindparam(1, $contenttype, PDO::PARAM_STR);
+	$sth = $db->prepare('select * from QMS_Content where doc_category = '. $pt);
 	$sth->execute();
-	?>
+
+
+		?>
   
   
-  <h4>Policies</h4>
-	   <div class="table-responsive">
-		  <table class="table table-striped table-hover">
-    			<tr>
-                	<th>Policy</th><th>Issue</th><th>Date</th><th>Location</th>
+  <h4>Text here</h4>
+	<div class="table-responsive col-md-10">
+		<table class="table table-hover table-striped" id="pagetable" data-search="true" data-select-item-name="toolbar1">
+			<thead>
+            	<tr>
+                    <th class="info col-md-5" >Title</th>
+                    <th class="info col-md-1">Version</th>
+                    <th class="info col-md-2" data-sortable="true">Updated</th>
+                    <th class="info col-md-2" data-sortable="true">Author</th>
                 </tr>
-				<tr>
-                	<td>Quality</td><td>2</td><td>1/11/2014</td><td>Everywhere!</td>                  
-                </tr>
-				<tr>
-                	<td>IT</td><td>1</td><td>16/12/2014</td><td>Everywhere!</td>                  
-                </tr>
-				<tr>
-                	<td>Car Parking</td><td>3</td><td>12/12/2014</td><td>Everywhere!</td>                  
-                </tr>
-				<tr>
-                	<td>Other</td><td>1</td><td>18/12/2014</td><td>Everywhere!</td>                  
-                </tr>
-		  </table>
-		</div>
+			</thead>
+			<tbody>
+            	<?php while ($row = $sth->fetch()){ ?>
+                <tr>
+                	<td><a href="http://<?=$row['doc_filepath']?><?=$row['doc_filename']?>"><?=$row['doc_title']?></a></td>
+                    <td><?=$row['doc_version']?></td>
+                    <td><?= reverse_date($row['doc_uploadedon'])?></td>
+                    <td><?=$row['doc_uploadedby']?></td>
+               </tr>
+				<?php } ?>
+            </tbody>
+        </table>
+	</div>
    </div>
 </div>
 </div>
 <?php 
+
 	include 'assets/php/footer.php';
 	$db = null;  
 ?> 
-<!-- jQuery (necessary for Bootstrap's JavaScript plugins) --> 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script> 
-<!-- Include all compiled plugins (below), or include individual files as needed --> 
-<!-- Latest compiled and minified JavaScript --> 
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
+
+<script>
+ $(document).ready(function(){
+   	     $('#pagetable').dataTable({
+			 "iDisplayLength": 25	
+		});
+
+</script>
 </body>
+
 </html>

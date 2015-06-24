@@ -4,11 +4,7 @@
 	} else {
 		$pt = htmlspecialchars($pageid);
 	}
-try {
-	$db = new PDO("mysql:host=$hostname;dbname=$username", $username, $password);	
-	} catch(Exception $e)  {
-	    print "Error!: " . $e->getMessage();
-    }
+
 	$msth = $db->prepare('CALL GetMessage(?)');
 	$msth->bindparam(1, $pt, PDO::PARAM_STR);
 	$msth->execute();

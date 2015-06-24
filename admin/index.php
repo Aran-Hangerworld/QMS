@@ -1,48 +1,15 @@
-<?php include '../assets/php/PDO.php'; ?>
+<?php 
+session_start();
+include '../assets/php/PDO.php'; ?>
 <?php include '../assets/php/header.php'; ?>
-<?php include '../assets/php/loginbox.php'; ?>
-        <div class="modal fade">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                        <h4 class="modal-title">Modal title</h4>
-                    </div>
-                    <div class="modal-body">
-                        <form class="form-horizontal" role="form">
-                            <div class="form-group">
-                                <div class="col-sm-2">
-                                    <label for="inputEmail3" class="control-label">Email</label>
-                                </div>
-                                <div class="col-sm-10">
-                                    <input type="email" class="form-control" id="inputEmail3" placeholder="Email">
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <div class="col-sm-2">
-                                    <label for="inputPassword3" class="control-label">Password</label>
-                                </div>
-                                <div class="col-sm-10">
-                                    <input type="password" class="form-control" id="inputPassword3" placeholder="Password">
-                                </div>
-                            </div>
-                            <div class="form-group">
-                               
-                            </div>
-                            <div class="form-group">
-                                <div class="col-sm-offset-2 col-sm-10">
-                                    <button type="submit" class="btn btn-default">Sign in</button>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-                    <div class="modal-footer">
-                        <a class="btn btn-default" data-dismiss="modal">Close</a>
-                        <a class="btn btn-primary">Save changes</a>
-                    </div>
-                </div>
-            </div>
-        </div>
+<?php include '../assets/php/nav.php'; ?>
+<?php 
+$pageid = 'admin';
+try {
+	$db = new PDO("mysql:host=$hostname;dbname=$username", $username, $password);	
+	} catch(Exception $e)  {
+	    print "Error!: " . $e->getMessage();
+    } ?>
 
 <div class="container">
 
@@ -50,19 +17,42 @@
 		<div class="col-md-12">
     		<?php include '../assets/php/message.php'; ?>    
 		</div>
-  		<div class="col-md-3 col-sm-12">
+  		
+  <div class="col-md-12 col-sm-12">
+<div class="panel panel-info">
+<div class="panel-heading">
+  <h4>Administration</h4></div>  
+      
+      <div class="panel-body">
+      <div class="col-md-3 col-sm-6 col-centered"><a href="?m=docs"><span class="glyphicon glyphicon-file adminicons"></span><br />
+        <h5>Manage Documents</h5></a>
+      </div>
+      <div class="col-md-3 col-sm-6 col-centered"><a href="?m=users"><span class="glyphicon glyphicon-user adminicons"></span><br />
+        <h5>Manage Users</h5></a>
+      </div>
+      <div class="col-md-3 col-sm-6 col-centered"><a href="?m=pages"><span class="glyphicon glyphicon-th-list adminicons"></span><br />
+        <h5>Manage Page Content</h5></a>
+      </div>
+      <div class="col-md-3 col-sm-6 col-centered"><a href="?m=menus"><span class="glyphicon glyphicon-list-alt adminicons"></span><br />
+        <h5>Manage Menus / Categories</h5></a>
+      </div>
+      </div></div>
 
-        </div>
-  <div class="col-md-9 col-sm-12">
+  
+  
+  
 <?php 
+
+if($_GET['m'] == "docs"){
+
 	$sth = $db->prepare('select * from QMS_Content');
 	$sth->execute();
 	?>
   
-  <h4>Administration</h4>
+
 	   <div class="table-responsive">
        <a class="btn btn-default" data-toggle="modal" data-target="#adddoc">Add a Document</a>
-		<table>
+		<table width="100%" align="center">
         	<thead>
             	<tr><th>ID</th><th>Title</th><th>Version</th><th>Updated</th><th>Category</th><th>Edit</th></tr>
             </thead>
@@ -75,6 +65,20 @@
 
 
 		</div>
+
+<?php }elseif ($_GET['m'] == "users") {
+    
+    
+  
+} elseif ($_GET['m'] == "pages") {
+  
+} elseif ($_GET['m'] == "menus"){
+
+} else {
+    echo "Dashboard";
+    
+}?>
+
    </div>
 </div>
 </div>
