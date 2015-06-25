@@ -34,7 +34,8 @@
 			 url: "assets/php/login.php",
 			 data: $('form.form-signin').serialize(),	
     	     success: function(response){
-                location.reload(); 
+                alert(response);
+                 location.reload(); 
  
          	},
 			 error: function(){	

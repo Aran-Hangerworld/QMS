@@ -9,9 +9,7 @@ include 'nav.php'; ?>
 
               
               <form action="/upload-target" class="dropzone">
-                  <div id="dz" class="fallback">
-                 
-                  </div>
+  
 
         <label for="title" class="sr-only">Title</label>
         <input type="text" id="title" class="form-control" placeholder="Doc Title" name="docTitle" required autofocus>

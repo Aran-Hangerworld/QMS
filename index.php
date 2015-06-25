@@ -30,6 +30,7 @@ try {
       <div class="jumbotron">
         <h1>
           <?=$row['jumbotron_title']?>
+            <?=$_Session['user']?>
         </h1>
         <p>
           <?=$row['jumbotron_content']?>

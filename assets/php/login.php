@@ -1,4 +1,5 @@
 <?php
+session_start();
 if (isset($_POST['user']) && isset($_POST['pass'])) {
     $myusername=$_POST['user']; 
 	$mypassword=$_POST['pass'];
@@ -23,9 +24,11 @@ if (isset($_POST['user']) && isset($_POST['pass'])) {
 			
 			$_SESSION['user'] = $myusername;
             $_SESSION['isadmin'] = $row['QMS_isadmin'];   
+            echo "Success";
         } else {
             echo "Failure";
 	    } 
+        
     }
 } else {
     echo "No Data Sent";
