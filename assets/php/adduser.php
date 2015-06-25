@@ -13,7 +13,7 @@ if (isset($_POST['QMS_user']) && isset($_POST['QMS_pass'])) {
 	# End of password
 
 	try {
-	$db = new PDO(INSERT INTO QMS_users (QMS_user, QMS_Realname, QMS_password, QMS_isadmin) VALUES (username, realname, newpasshash, isadmin););	
+	$db = new PDO("mysql:host=$hostname;dbname=$username", $username, $password);	
 	} catch(Exception $e)  {
 	    print "Error!: " . $e->getMessage();
     }
@@ -36,13 +36,7 @@ if (isset($_POST['QMS_user']) && isset($_POST['QMS_pass'])) {
 }
     
 ?>
-
-
-	try {
-		$db = new PDO("mysql:host=$hostname;dbname=$username", $username, $password);	
-		} catch(Exception $e)  {
-		    print "Error!: " . $e->getMessage();
-	    }
 	
 
 	
+INSERT INTO QMS_users (QMS_user, QMS_realname, QMS_email, pass, dept, isadmin) VALUES (username, rname, email, pass, dept, isadmin);
