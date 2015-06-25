@@ -70,6 +70,7 @@ if($_GET['m'] == "docs"){
     $sth = $db->prepare('select * from QMS_users');
 	$sth->execute();
 	?>
+    <?php include'../assets/php/adduser.php'?>  
     <div class="table-responsive">
        <a class="btn btn-default" data-toggle="modal" data-target="#adduser">Add a user</a>
 		<table width="100%" align="center" class="table">
