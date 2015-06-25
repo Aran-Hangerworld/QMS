@@ -52,7 +52,7 @@ if($_GET['m'] == "docs"){
 
 	   <div class="table-responsive">
        <a class="btn btn-default" data-toggle="modal" data-target="#adddoc">Add a Document</a>
-		<table width="100%" align="center">
+		<table width="100%" align="center" class="table">
         	<thead>
             	<tr><th>ID</th><th>Title</th><th>Version</th><th>Updated</th><th>Category</th><th>Edit</th></tr>
             </thead>
@@ -67,13 +67,32 @@ if($_GET['m'] == "docs"){
 		</div>
 
 <?php }elseif ($_GET['m'] == "users") {
+    $sth = $db->prepare('select * from QMS_users');
+	$sth->execute();
+	?>
+    <div class="table-responsive">
+       <a class="btn btn-default" data-toggle="modal" data-target="#adduser">Add a user</a>
+		<table width="100%" align="center" class="table">
+        	<thead>
+            	<tr><th>ID</th><th>Name</th><th>User</th><th>Last Login</th><th>Is Admin</th><th>Edit</th></tr>
+            </thead>
+            <tbody>
+            	<?php while ($row = $sth->fetch()){ ?>
+                <tr><td><?=$row['id']?></td><td><?=$row['QMS_RealName']?></td><td><?=$row['QMS_User']?></td><td><?=$row['QMS_lastlogin']?></td><td><?=$row['QMS_isadmin']?></td><td><a class="btn btn-warning"><span class="glyphicon glyphicon-trash"></span></a></td></tr>
+				<?php } ?>
+            </tbody>
+        </table>
+
+
+		</div>
     
-    
-  
+ <?php
 } elseif ($_GET['m'] == "pages") {
   
 } elseif ($_GET['m'] == "menus"){
 
+} elseif ($_GET['m'] == "mess"){
+    
 } else {
     echo "Dashboard";
     
