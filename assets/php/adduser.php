@@ -1,8 +1,8 @@
 <?php
 if (isset($_POST['QMS_user']) && isset($_POST['QMS_pass'])) {
     include 'PDO.php';
-    $myusername= strip_tags($_POST['QMS_user']);
-    $rname =     strip_tags($_POST['QMS_realnamae']);
+    $username= strip_tags($_POST['QMS_user']);
+    $realname =     strip_tags($_POST['QMS_Realnamae']);
     $isadmin =   strip_tags($_POST['QMS_isadmin']);
     $company = "Hangerworld";
     # Get new password
@@ -13,21 +13,20 @@ if (isset($_POST['QMS_user']) && isset($_POST['QMS_pass'])) {
 	# End of password
 
 	try {
-		$db = new PDO("mysql:host=$hostname;dbname=$username", $username, $password);	
-		} catch(Exception $e)  {
-		    print "Error!: " . $e->getMessage();
-	    }
-	$sth = $db->prepare('CALL AdduserQMS(?,?,?,?,?)');
-	$sth->bindparam(1, $myusername, PDO::PARAM_STR);
-    $sth->bindparam(2, $rname,    PDO::PARAM_STR);
+	$db = new PDO(INSERT INTO QMS_users (QMS_user, QMS_Realname, QMS_password, QMS_isadmin) VALUES (username, realname, newpasshash, isadmin););	
+	} catch(Exception $e)  {
+	    print "Error!: " . $e->getMessage();
+    }
+	$sth = $db->prepare('CALL AdduserQMS(?,?,?,?)');
+	$sth->bindparam(1, $username, PDO::PARAM_STR);
+    $sth->bindparam(2, $realnamename,    PDO::PARAM_STR);
 	$sth->bindparam(3, $newpasshash, PDO::PARAM_STR);
     $sth->bindparam(4, $isadmin,  PDO::PARAM_INT);
-    $sth->bindparam(5, $company,  PDO::PARAM_STR);
 	$sth->execute();
 	
 	# Email confirm
 	$sub = "New User Created - Hangerworld Suppport";
-	$msg = "Hi $rname,\r\n A new user has been created for you to use on the Hangerworld support site.\r\n Username: $lusername \r\n Password: $newpass \r\n Log in via http://www.hangerworld.co.uk/qms/ \r\n Regards \r\n IT Dept.";
+	$msg = "Hi $realname,\r\n A new user has been created for you to use on the Hangerworld support site.\r\n Username: $username \r\n Password: $newpass \r\n Log in via http://www.hangerworld.co.uk/qms/ \r\n Regards \r\n IT Dept.";
 	$headers = ""; 
 	mail($email,$sub,$msg,$headers);
 	 
