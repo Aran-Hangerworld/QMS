@@ -30,7 +30,7 @@ try {
     <?php if(!isset($_SESSION['user'])){      ?>
     <li><button class="btn-sm btn-primary" data-toggle="modal"  id="login-btn" data-target="#login-form"><span class="glyphicon glyphicon-log-in sm">&nbsp;</span>Login</button></li> 
     <?php  } else { 	?>
-       	<li><button class="btn-sm btn-primary" id="logout" onclick="locaton.href='assets/php/logout.php'"><span class="glyphicon glyphicon-log-out sm">&nbsp;</span>Logout</button></li>
+       	<li><button class="btn-sm btn-primary" id="logout" onclick="location.href='/qms/assets/php/logout.php'"><span class="glyphicon glyphicon-log-out sm">&nbsp;</span>Logout</button></li>
     <?php if($_SESSION['isadmin']){ ?>
    
         <li><button class="btn-sm btn-warning" onclick="location.href='/qms/admin/index.php'"><span class="glyphicon glyphicon-user sm">&nbsp;</span>Admin</button></li>
