@@ -14,6 +14,9 @@ try {
 	
 	
 	while ($row = $sth->fetch()){
+        if($_GET['type'] == $row['tOrder']){
+        $pagetitle = $row['Title'];
+        }
 		if($row['tOrder'] == '15') {
 			echo "<a href='".$row['Target']."' class='btn btn-success btn-block'><span class='glyphicon sm ".$row['Icon']."'></span>&nbsp;&nbsp;".$row['Title']."<br /><small>(To be used for reference only</small></a>";
 		} else {

@@ -21,12 +21,11 @@ if (isset($_POST['user']) && isset($_POST['pass'])) {
 	
 	while ($row = $sth->fetch()){
 		if($row['cnt'] == 1){
-			
+			echo "1";
 			$_SESSION['user'] = $myusername;
             $_SESSION['isadmin'] = $row['QMS_isadmin'];   
-            echo "Success";
         } else {
-            echo "Failure";
+            echo "0";
 	    } 
         
     }
