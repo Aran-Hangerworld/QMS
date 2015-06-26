@@ -69,7 +69,7 @@ if($_GET['m'] == "docs"){
 
 		</div>
 
-<?php }elseif ($_GET['m'] == "users") {
+<?php } elseif ($_GET['m'] == "users") {
     $sth = $db->prepare('select * from QMS_users');
 	$sth->execute();
 	?>
@@ -82,7 +82,7 @@ if($_GET['m'] == "docs"){
             </thead>
             <tbody>
             	<?php while ($row = $sth->fetch()){ ?>
-                <tr><td><?=$row['id']?></td><td><?=$row['QMS_RealName']?></td><td><?=$row['QMS_User']?></td><td><?=$row['QMS_lastlogin']?></td><td><?=$row['QMS_isadmin']?></td><td><a class="btn btn-warning"><span class="glyphicon glyphicon-trash"></span></a></td></tr>
+                <tr><td><?=$row['QMS_id']?></td><td><?=$row['QMS_realname']?></td><td><?=$row['QMS_user']?></td><td><?=$row['QMS_lastlogin']?></td><td><?=$row['QMS_isadmin']?></td><td><a class="btn btn-warning"><span class="glyphicon glyphicon-trash"></span></a></td></tr>
 				<?php } ?>
             </tbody>
         </table>
