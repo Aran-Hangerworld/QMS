@@ -1,16 +1,14 @@
-<?php include 'PDO.php'; 
-include 'header.php';
-include 'nav.php'; ?>
 <script src="https://rawgit.com/enyo/dropzone/master/dist/dropzone.js"></script>
 <link rel="stylesheet" href="https://rawgit.com/enyo/dropzone/master/dist/dropzone.css">
-<div class="container">
-  <div class="row">
-    <div class="col-md-12">
-
-              
-              <form action="/upload-target" class="dropzone">
-  
-
+<div class="modal fade" id="upload-form">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            <h4 class="modal-title">Upload a Document</h4>
+          </div>
+          <div class="modal-body">
+        <form action="../assets/php/upload.php" class="dropzone" id="dz">  
         <label for="title" class="sr-only">Title</label>
         <input type="text" id="title" class="form-control" placeholder="Doc Title" name="docTitle" required autofocus>
         <label for="category" class="sr-only">Category</label>
@@ -28,29 +26,10 @@ include 'nav.php'; ?>
     <?php } ?>
         </select>
         <label for="version" class="sr-only">Doc Version No.</label>
-        <input type="text" id="version" class="form-control" placeholder="Doc Version" required name="docVersion">                  
+        <input type="text" id="version" class="form-control" placeholder="Doc Version" required name="docVersion">      
         <button class="btn btn-lg btn-primary btn-block" type="submit" id="uploadbtn">Upload Doc</button>
       </form>
-
       </div>
     </div>
 </div>
-<script>
-	 $(document).ready(function(){
-          
-		 $("#uploadbtn").click(function(){
- 	         $.ajax({
-    		 type: "POST",
-			 url: "assets/php/upload.php",
-			 data: $('form.upload').serialize(),	
-    	     success: function(response){
-                location.reload(); 
- 
-         	},
-			 error: function(){	
-				alert("An error occurred: " & result.errorMessage);
-			}
-    	 	});
-		 });
-	 });
-</script>
+</div>

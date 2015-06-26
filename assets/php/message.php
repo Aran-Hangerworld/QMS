@@ -4,6 +4,16 @@
 	} else {
 		$pt = htmlspecialchars($pageid);
 	}
+if(isset($_GET['err'])){
+    $errcode = $_GET['err'];
+    if($errcode=="100"){
+        $errmsg = "YOU ARE NOT AUTHORISED TO VIEW THE ADMIN PAGE";   
+    } ?>
+    <div class="alert alert-danger alert-dismissable text-center">
+		<?php echo $errmsg; ?>
+     		 <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+  		  </div>
+<?php } else {
 
 	$msth = $db->prepare('CALL GetMessage(?)');
 	$msth->bindparam(1, $pt, PDO::PARAM_STR);
@@ -14,5 +24,6 @@
 		<?php echo $row['message']?>
      		 <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
   		  </div>
+<?php } ?>
 <?php } ?>
 	

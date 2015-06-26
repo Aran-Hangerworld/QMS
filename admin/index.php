@@ -1,5 +1,8 @@
 <?php 
 session_start();
+if($_SESSION['isadmin'] <> 1){
+    header('Location: http://www.hangerworld.co.uk/qms/index.php?err=100');
+}
 include '../assets/php/PDO.php'; ?>
 <?php include '../assets/php/header.php'; ?>
 <?php include '../assets/php/nav.php'; ?>
@@ -44,21 +47,21 @@ try {
 <?php 
 
 if($_GET['m'] == "docs"){
-
+    include '../assets/php/uploadform.php';
 	$sth = $db->prepare('select * from QMS_Content');
 	$sth->execute();
 	?>
   
 
 	   <div class="table-responsive">
-       <a class="btn btn-default" data-toggle="modal" data-target="#adddoc">Add a Document</a>
+       <a class="btn btn-default" data-toggle="modal" data-target="#upload-form">Add a Document</a>
 		<table width="100%" align="center" class="table">
         	<thead>
             	<tr><th>ID</th><th>Title</th><th>Version</th><th>Updated</th><th>Category</th><th>Edit</th></tr>
             </thead>
             <tbody>
             	<?php while ($row = $sth->fetch()){ ?>
-                <tr><td><?=$row['id']?></td><td><?=$row['doc-title']?></td><td><?=$row['doc-version']?></td><td><?=$row['doc-uploadedon']?></td><td><?=$row['doc-category']?></td><td><a class="btn btn-warning"><span class="glyphicon glyphicon-trash"></span></a></td></tr>
+                <tr><td><?=$row['id']?></td><td><?=$row['doc_title']?></td><td><?=$row['doc_version']?></td><td><?=$row['doc_uploadedon']?></td><td><?=$row['doc_category']?></td><td><a class="btn btn-warning"><span class="glyphicon glyphicon-trash"></span></a></td></tr>
 				<?php } ?>
             </tbody>
         </table>
