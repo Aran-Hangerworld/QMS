@@ -6,7 +6,7 @@
                         <h4 class="modal-title">Add User</h4>
                     </div>
                     <div class="modal-body">
-                        <form class="form-horizontal" role="form">
+                        <form class="form-horizontal" role="form" id="adduserform">
                             <div class="form-group">
                                 <div class="col-sm-2">
                                     <label for="text" class="control-label">Username</label>
@@ -56,7 +56,7 @@
  	         $.ajax({
     		 type: "POST",
 			 url: "assets/php/adduser.php",
-			 data: $('form.form-horizontal').serialize(),	
+			 data: $('form-horizontal').serialize(),	
     	     success: function(response){
                 location.reload(); 
  
