@@ -1,5 +1,8 @@
 <?php 
  session_start();
+if(!isset($_SESSION['user'])){
+    header('Location: http://www.hangerworld.co.uk/qms/index.php?err=102');
+}
 include 'assets/php/PDO.php'; ?>
 <?php include 'assets/php/header.php'; ?>
 <?php include 'assets/php/nav.php'; ?>
@@ -22,7 +25,7 @@ try {
 	} catch(Exception $e)  {
 	    print "Error!: " . $e->getMessage();
     }
-
+    
 	$sth = $db->prepare('select * from QMS_Content where doc_category = '. $pt);
 	$sth->execute();
 
@@ -30,13 +33,14 @@ try {
 		?>
   
   
-  <h4>Text here</h4>
-	<div class="table-responsive col-md-10">
+  <h4><?=$pagetitle?></h4>
+	<div class="table-responsive col-md-12">
 		<table class="table table-hover table-striped" id="pagetable" data-search="true" data-select-item-name="toolbar1">
 			<thead>
             	<tr>
                     <th class="info col-md-5" >Title</th>
                     <th class="info col-md-1">Version</th>
+                    <th class="info col-md-1"></th>
                     <th class="info col-md-2" data-sortable="true">Updated</th>
                     <th class="info col-md-2" data-sortable="true">Author</th>
                 </tr>
@@ -69,6 +73,7 @@ try {
 		});
 
 </script>
+
 </body>
 
 </html>

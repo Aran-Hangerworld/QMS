@@ -34,9 +34,11 @@
 			 url: "assets/php/login.php",
 			 data: $('form.form-signin').serialize(),	
     	     success: function(response){
-                alert(response);
-                 location.reload(); 
- 
+                if(response == "0"){
+                  location.href('http://www.hangerworld.co.uk/qms/index.php?err=101'); 
+                } else if(response =="1") {                  
+                  location.href('http://www.hangerworld.co.uk/qms/index.php');   
+                }
          	},
 			 error: function(){	
 				alert("An error occurred: " & result.errorMessage);
