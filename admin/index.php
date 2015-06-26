@@ -69,26 +69,25 @@ if($_GET['m'] == "docs"){
 
 		</div>
 
-<?php } elseif ($_GET['m'] == "users") {
+<?php } elseif ($_GET['m'] == "users"){
+    include'../assets/php/adduserform.php';
     $sth = $db->prepare('select * from QMS_users');
 	$sth->execute();
 	?>
-    <?php include'../assets/php/adduser.php'?>  
+    
     <div class="table-responsive">
-       <a class="btn btn-default" data-toggle="modal" data-target="#adduser">Add a user</a>
+       <a class="btn btn-default" data-toggle="modal" data-target="#adduserform">Add a user</a>
 		<table width="100%" align="center" class="table">
         	<thead>
-            	<tr><th>ID</th><th>Name</th><th>User</th><th>Last Login</th><th>Is Admin</th><th>Edit</th></tr>
+            	<tr><th>ID</th><th>User</th><th>Name</th><th>Email Address</th><th>Last Login</th><th>Admin</th><th>Edit</th></tr>
             </thead>
             <tbody>
             	<?php while ($row = $sth->fetch()){ ?>
-                <tr><td><?=$row['QMS_id']?></td><td><?=$row['QMS_realname']?></td><td><?=$row['QMS_user']?></td><td><?=$row['QMS_lastlogin']?></td><td><?=$row['QMS_isadmin']?></td><td><a class="btn btn-warning"><span class="glyphicon glyphicon-trash"></span></a></td></tr>
+                <tr><td><?=$row['QMS_id']?></td><td><?=$row['QMS_user']?></td><td><?=$row['QMS_realname']?></td><td><?=$row['QMS_email']?></td><td><?=$row['QMS_lastlogin']?></td><td><?=$row['QMS_isadmin']?></td><td><a class="btn btn-warning" id="userbtn"><span class="glyphicon glyphicon-trash"></span></a></td></tr>
 				<?php } ?>
             </tbody>
         </table>
-
-
-		</div>
+    </div>
     
  <?php
 } elseif ($_GET['m'] == "pages") {

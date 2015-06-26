@@ -1,10 +1,15 @@
 <?php
 if (isset($_POST['QMS_lusername']) && isset($_POST['QMS_lpass'])) {
     include 'PDO.php';
-    $lusername= strip_tags($_POST['QMS_user']);
-    $rname =    strip_tags($_POST['QMS_realname']);
-    $email =    strip_tags($_POST['QMS_email']);
-    $isadmin =  strip_tags($_POST['QMS_isadmin']);
+    $lusername= strip_tags($_POST['username']);
+    $rname =    strip_tags($_POST['rname']);
+    $email =    strip_tags($_POST['email']);
+    $isadmin =  strip_tags($_POST['isadmin']);
+    if($isadmin){ 
+        $isadmin = 1;
+    }else {
+           $isadmin = 0;
+    }
     $company = "Hangerworld";
     # Get new password
 	$response = CallAPI("GET","http://randomword.setgetgo.com/get.php");

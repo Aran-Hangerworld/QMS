@@ -1,4 +1,4 @@
-        <div class="modal fade in" id="adduser">
+        <div class="modal fade in" id="adduserform">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -20,7 +20,7 @@
                                     <label for="text" class="control-label">Name</label>
                                 </div>
                                 <div class="col-sm-10">
-                                    <input type="text" class="form-control" placeholder="Name" id="rname" name="name">
+                                    <input type="text" class="form-control" placeholder="Name" id="rname" name="rname">
                                 </div>
                             </div>
                             <div class="form-group">
@@ -35,13 +35,8 @@
                                 <div class="col-sm-offset-2 col-sm-10">
                                     <div class="checkbox">
                                         <label>
-                                            <input type="checkbox">Admin</label>
+                                            <input type="checkbox" name="isadmin">Admin</label>
                                     </div>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <div class="col-sm-offset-2 col-sm-10">
-                                    <button type="submit" class="btn btn-default">Sign in</button>
                                 </div>
                             </div>
                         </form>
@@ -61,7 +56,7 @@
  	         $.ajax({
     		 type: "POST",
 			 url: "assets/php/adduser.php",
-			 data: $('form.form-signin').serialize(),	
+			 data: $('form.form-horizontal').serialize(),	
     	     success: function(response){
                 location.reload(); 
  
