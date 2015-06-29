@@ -6,6 +6,7 @@ if($_SESSION['isadmin'] <> 1){
 include '../assets/php/PDO.php'; ?>
 <?php include '../assets/php/header.php'; ?>
 <?php include '../assets/php/nav.php'; ?>
+<?php include '../assets/php/functions.php'; ?>
 <?php 
 $pageid = 'admin';
 try {
@@ -48,20 +49,23 @@ try {
 
 if($_GET['m'] == "docs"){
     include '../assets/php/uploadform.php';
+     try {
+	$db = new PDO("mysql:host=$hostname;dbname=$username", $username, $password);	
+	} catch(Exception $e)  {
+	    print "Error!: " . $e->getMessage();
+    }
 	$sth = $db->prepare('select * from QMS_Content');
 	$sth->execute();
 	?>
-  
-
 	   <div class="table-responsive">
-       <a class="btn btn-default" data-toggle="modal" data-target="#upload-form">Add a Document</a>
-		<table width="100%" align="center" class="table">
+       <a class="btn btn-default" data-toggle="modal" data-target="#upload-form" style="position: relative; top:25px; left:400px;"><span class="glyphicon glyphicon-plus" style="font-size:1em;"></span>Add a Document</a>
+		<table width="100%" align="center" class="table" id="doctable">
         	<thead>
             	<tr><th>ID</th><th>Title</th><th>Version</th><th>Updated</th><th>Category</th><th>Edit</th></tr>
             </thead>
             <tbody>
             	<?php while ($row = $sth->fetch()){ ?>
-                <tr><td><?=$row['id']?></td><td><?=$row['doc_title']?></td><td><?=$row['doc_version']?></td><td><?=$row['doc_uploadedon']?></td><td><?=$row['doc_category']?></td><td><a class="btn btn-warning"><span class="glyphicon glyphicon-trash"></span></a></td></tr>
+                <tr><td><?=$row['id']?></td><td><?=$row['doc_title']?></td><td><?=$row['doc_version']?></td><td><?=$row['doc_uploadedon']?></td><td><?php $txtcat = parse_category($row['doc_category'], $db); ?><?=$txtcat['Title']?></td><td><a class="btn-sm btn-warning"><span class="glyphicon glyphicon-edit" style="font-size:1em"></span></a></td></tr>
 				<?php } ?>
             </tbody>
         </table>
@@ -70,20 +74,30 @@ if($_GET['m'] == "docs"){
 		</div>
 
 <?php } elseif ($_GET['m'] == "users"){
-    include'../assets/php/adduserform.php';
+    include '../assets/php/adduserform.php';
+    try {
+	$db = new PDO("mysql:host=$hostname;dbname=$username", $username, $password);	
+	} catch(Exception $e)  {
+	    print "Error!: " . $e->getMessage();
+    }
     $sth = $db->prepare('select * from QMS_users');
 	$sth->execute();
 	?>
     
     <div class="table-responsive">
-       <a class="btn btn-default" data-toggle="modal" data-target="#adduserform">Add a user</a>
-		<table width="100%" align="center" class="table">
+       <a class="btn btn-default" data-toggle="modal" data-target="#adduserform" style="position: relative; top:25px; left:400px;"><span class="glyphicon glyphicon-plus" style="font-size:1em;"></span>Add a user</a>
+		<table width="100%" align="center" class="table" id="usertable">
         	<thead>
             	<tr><th>ID</th><th>User</th><th>Name</th><th>Email Address</th><th>Last Login</th><th>Admin</th><th>Edit</th></tr>
             </thead>
             <tbody>
             	<?php while ($row = $sth->fetch()){ ?>
-                <tr><td><?=$row['QMS_id']?></td><td><?=$row['QMS_user']?></td><td><?=$row['QMS_realname']?></td><td><?=$row['QMS_email']?></td><td><?=$row['QMS_lastlogin']?></td><td><?=$row['QMS_isadmin']?></td><td><a class="btn btn-warning" id="userbtn"><span class="glyphicon glyphicon-trash"></span></a></td></tr>
+                <tr><td><?=$row['QMS_id']?></td><td><?=$row['QMS_user']?></td><td><?=$row['QMS_realname']?></td><td><?=$row['QMS_email']?></td><td><?=$row['QMS_lastlogin']?></td><td>
+                    <?php if($row['QMS_isadmin'] =="1"){ ?><span class="glyphicon glyphicon-ok" style="font-size:1em"></span> 
+                    <?php } else { ?>
+                    <span class="glyphicon glyphicon-remove" style="font-size:1em"></span> 
+                    <?php } ?>
+                    </td><td><a class="btn-sm btn-warning" id="userbtn"><span class="glyphicon glyphicon-edit" style="font-size:1em"></span></a></td></tr>
 				<?php } ?>
             </tbody>
         </table>
@@ -113,5 +127,18 @@ if($_GET['m'] == "docs"){
 <!-- Include all compiled plugins (below), or include individual files as needed --> 
 <!-- Latest compiled and minified JavaScript --> 
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="//cdn.datatables.net/1.10.7/js/jquery.dataTables.min.js"></script>
+<script src="//cdn.datatables.net/1.10.7/css/jquery.dataTables.min.css"></script> 
+ 
+<script>
+$(document).ready(function(){
+    $('#usertable').DataTable();
+});
+    
+    $(document).ready(function(){
+    $('#doctable').DataTable();
+});
+
+</script>
 </body>
 </html>

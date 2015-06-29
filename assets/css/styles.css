@@ -4,6 +4,9 @@
 span.glyphicon {
 	font-size: 3.5em;
 }
+span.sm-glyphicon {
+    font-size: 1.5em;   
+}
 span.sm {
 	font-size: 1em;
 }
