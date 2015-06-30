@@ -8,8 +8,12 @@
                     <div class="modal-body">
                         <form class="form-horizontal" role="form" id="adduserform">
                             <div class="form-group">
+                                <div class="col-sm-2">   
+                                    <label type="hidden" id="id" name="id"></label>  
+                                </div>    
+                            </div>
+                            <div class="form-group">
                                 <div class="col-sm-2">
-                                    <label type="hidden" id="id" name="id"><</label>
                                     <label for="text" class="control-label">Username</label>
                                 </div>
                                 <div class="col-sm-10">
@@ -44,7 +48,7 @@
                     </div>
                     <div class="modal-footer">
                         <a class="btn btn-default" data-dismiss="modal">Close</a>
-                        <a class="btn btn-primary" id="addusrbtn">Save changes</a>
+                        <a class="btn btn-primary" id="add-user-btn">Add user</a>
                     </div>
                 </div>
             </div>
@@ -52,19 +56,18 @@
 
 <script>
 	 $(document).ready(function(){
-
-		 $("#addusrbtn").click(function(){
+		 $("#add-user-btn").click(function(){
  	         $.ajax({
     		 type: "POST",
 			 url: "assets/php/adduser.php",
 			 data: $('form.form-horizontal').serialize(),	
     	     success: function(response){
+                 alert();
                 location.reload(); 
- 
          	},
 			 error: function(){	
 				alert("An error occurred: " & result.errorMessage);
-			}
+			},
     	 	});
 		 });
 	 });

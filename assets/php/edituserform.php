@@ -9,7 +9,7 @@
                         <form class="form-horizontal" role="form" id="edituserform">
                             <div class="form-group">
                                 <div class="col-sm-2">
-                                    <label type="hidden" id="id" name="id"><</label>
+                                    <label type="hidden" id="id" name="id"></label>
                                     <label for="text" class="control-label">Username</label>
                                 </div>
                                 <div class="col-sm-10">
@@ -44,13 +44,12 @@
                                 <div class="col-sm-offset-2 col-sm-10">
                                     <a class="btn btn-default" data-target="">Generate new password</a>
                                     </div>
-                                </div>    
-                            </div>  
+                                </div>      
                         </form>
                     </div>
                     <div class="modal-footer">
                         <a class="btn btn-default" data-dismiss="modal">Close</a>
-                        <a class="btn btn-primary" id="edituserbtn">Save changes</a>  
+                        <a class="btn btn-primary" id="edituserbtn" data-target="edituser.php">Save changes</a>  
                 </div>
                 </div>
             </div>

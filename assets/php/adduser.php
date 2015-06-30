@@ -1,5 +1,5 @@
 <?php
-if (isset($_POST['username'])) {
+if (isset($_POST['username'])) { 
     include 'PDO.php';
     $id = strip_tags($_POST['id']);
     $lusername = strip_tags($_POST['username']);
