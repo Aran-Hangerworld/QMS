@@ -165,6 +165,7 @@ if($_GET['m'] == "docs"){
 
 <?php } elseif ($_GET['m'] == "users"){
     include '../assets/php/adduserform.php';
+    include '../assets/php/edituserform.php';
     try {
 	$db = new PDO("mysql:host=$hostname;dbname=$username", $username, $password);	
 	} catch(Exception $e)  {
@@ -187,7 +188,7 @@ if($_GET['m'] == "docs"){
                     <?php } else { ?>
                     <span class="glyphicon glyphicon-remove" style="font-size:1em"></span> 
                     <?php } ?>
-                    </td><td><a class="btn-sm btn-warning" id="editbtn" data-target="#edituserform"><span class="glyphicon glyphicon-edit" style="font-size:1em"></span></a></td></tr>
+                    </td><td><a class="btn-sm btn-warning" data-toggle="modal" data-target="#edituserform"><span class="glyphicon glyphicon-edit" style="font-size:1em"></span></a></td></tr>
 				<?php } ?>
             </tbody>
         </table>
