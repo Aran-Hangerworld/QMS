@@ -43,7 +43,7 @@
                     </div>
                     <div class="modal-footer">
                         <a class="btn btn-default" data-dismiss="modal">Close</a>
-                        <a class="btn btn-primary" id="addusrbtn">Save changes</a>
+                        <a class="btn btn-primary" id="edituser">Save changes</a>
                     </div>
                 </div>
             </div>
@@ -52,10 +52,10 @@
 <script>
 	 $(document).ready(function(){
 
-		 $("#addusrbtn").click(function(){
+		 $("#edituserbtn").click(function(){
  	         $.ajax({
     		 type: "POST",
-			 url: "assets/php/adduser.php",
+			 url: "assets/php/edituser.php",
 			 data: $('.form-horizontal').serialize(),	
     	     success: function(response){
                 location.reload(); 
