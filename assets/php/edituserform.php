@@ -41,9 +41,7 @@
                             </div>
                             <div class="form-group">
                                 <div class="col-sm-offset-2 col-sm-10">
-                                    <div class="btn-sm btn-primary">
-                                        <label>
-                                            <input type="" name="password generate">Generate new password</label>
+                                    <a class="btn btn-default" data-target="">Generate new password</a>
                                     </div>
                                 </div>    
                             </div>  

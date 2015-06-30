@@ -23,14 +23,13 @@ if (isset($_POST['username'])) {
 	} catch(Exception $e)  {
 	    print "Error!: " . $e->getMessage();
     }
-	$sth = $db->prepare('CALL QMS_adduser(?,?,?,?,?,?)');
+	$sth = $db->prepare('CALL QMS_edituser(?,?,?,?,?,?)');
 	$sth->bindparam(1, $lusername, PDO::PARAM_STR);
     $sth->bindparam(2, $rname,    PDO::PARAM_STR);
     $sth->bindparam(3, $email, PDO::PARAM_STR);
     $sth->bindparam(4, $isadmin,  PDO::PARAM_INT);
     $sth->bindparam(5, $company,  PDO::PARAM_INT);
 	$sth->bindparam(6, $newpasshash, PDO::PARAM_STR);
-    
     
     
 	$sth->execute();
