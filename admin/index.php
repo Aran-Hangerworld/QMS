@@ -65,7 +65,97 @@ if($_GET['m'] == "docs"){
             </thead>
             <tbody>
             	<?php while ($row = $sth->fetch()){ ?>
+<<<<<<< HEAD
                 <tr><td><?=$row['id']?></td><td><?=$row['doc_title']?></td><td><?=$row['doc_version']?></td><td><?=$row['doc_uploadedon']?></td><td><?php $txtcat = parse_category($row['doc_category'], $db); ?><?=$txtcat['Title']?></td><td><a class="btn-sm btn-warning"><span class="glyphicon glyphicon-edit" style="font-size:1em"></span></a></td></tr>
+=======
+                 <div class="modal fade editdoc<?=$row['doc_id']?>" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header ">
+                  <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                  <h4 class="modal-title">Edit Document</h4>
+                </div>
+                <div class="modal-body">
+                  <div id="edit-user-form">
+                    <form class="form-horizontal<?=$row['doc_id']?>" role="form" id="update<?=$row['doc_id']?>">
+                      <input type="hidden" name="id" id="id" value="<?=$row['doc_id']?>">
+                      <div class="form-group">
+                        <div class="col-sm-2">
+                          <label for="username" class="control-label"> Title</label>
+                        </div>
+                        <div class="col-sm-10">
+                          <input type="text" value="<?=$row['doc_title']?>" class="form-control" name="title">
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <div class="col-sm-2">
+                          <label for="name" class="control-label">Version</label>
+                        </div>
+                        <div class="col-sm-10">
+                          <input type="text" value="<?=$row['doc_version']?>" class="form-control" name="version">
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <div class="col-sm-2">
+                          <label for="email" class="control-label">Updated</label>
+                        </div>
+                        <div class="col-sm-10">
+                          <input type="text" value="<?=$row['doc_uploadedby']?>" class="form-control" name="uploaded">
+                        </div>
+                      </div>
+                      <?php    
+			$sth = $db->prepare('select * from QMS where location = "s"'); 
+			$sth->execute();  
+			?>
+                      <div class="form-group">
+                        <div class="col-sm-2">
+                          <label for="dept" class="control-label">Department</label>
+                        </div>
+                        <div class="col-sm-10">
+                          <select class="form-control" id="category" name="category">
+                            <?php  while ($catrow = $sth->fetch()){  ?>
+                            <option value="<?=$catrow['id']?>" <?php if($row['doc_id'] == $catrow['id']){ echo "Selected";} ?>>
+                            <?=$catrow['title']?>
+                            </option>
+                            <?php } ?>
+                          </select>
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <div class="col-sm-2">
+                          <label for="isadmin" class="control-label">Status (Active)</label>
+                        </div>
+                        <div class="col-sm-10">
+                          <input type="checkbox" class="checkbox" name="isactive" <?php if($row['doc_status'] == 1){echo "Checked";}?>  value="1" />
+                        </div>
+                      </div>
+                    </form>
+                  </div>
+                </div>
+                <div class="modal-footer">
+                  <div id="success-buttons<?=$row['id']?>" style="display: none">
+                    <div class="alert alert-dimissable alert-success" style="display: none;" id="update-success<?=$row['doc_id']?>">User Details Changed!</div>
+                    <button type="button" class="btn btn-default refresh" data-dismiss="modal">Continue</button>
+                  </div>
+                  <div id="modal-buttons<?=$row['doc_id']?>">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary edituser" id="<?=$row['doc_id']?>">Update</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+                <tr><td><?=$row['doc_id']?></td><td><?=$row['doc_title']?></td><td><?=$row['doc_version']?></td><td><?=$row['doc_uploadedon']?></td><td>
+                      <?php
+            $sth = $db->prepare('SELECT Title FROM QMS_nav where ID = '. $row['doc_category']);
+	        $sth->execute();
+	        while ($row = $sth->fetch()){
+                $cattxt = $row['Title'];
+            }
+            echo $cattxt;
+                    ?>
+                    </td><td><button class="btn-sm btn-warning" data-target="#editdoc<?=$row['doc_id']?>"><span class="glyphicon glyphicon-edit" style="font-size:1em"></span></button></td></tr>
+>>>>>>> Bens
 				<?php } ?>
             </tbody>
         </table>
