@@ -65,7 +65,16 @@ if($_GET['m'] == "docs"){
             </thead>
             <tbody>
             	<?php while ($row = $sth->fetch()){ ?>
-                <tr><td><?=$row['id']?></td><td><?=$row['doc_title']?></td><td><?=$row['doc_version']?></td><td><?=$row['doc_uploadedon']?></td><td><?php $txtcat = parse_category($row['doc_category'], $db); ?><?=$txtcat['Title']?></td><td><a class="btn-sm btn-warning"><span class="glyphicon glyphicon-edit" style="font-size:1em"></span></a></td></tr>
+                <tr><td><?=$row['doc_id']?></td><td><?=$row['doc_title']?></td><td><?=$row['doc_version']?></td><td><?=$row['doc_uploadedon']?></td><td>
+                      <?php
+            $sth = $db->prepare('SELECT Title FROM QMS_nav where ID = '. $row['doc_category']);
+	        $sth->execute();
+	        while ($row = $sth->fetch()){
+                $cattxt = $row['Title'];
+            }
+            echo $cattxt;
+                    ?>
+                    </td><td><a class="btn-sm btn-warning"><span class="glyphicon glyphicon-edit" style="font-size:1em"></span></a></td></tr>
 				<?php } ?>
             </tbody>
         </table>
