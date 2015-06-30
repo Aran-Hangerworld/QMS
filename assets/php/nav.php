@@ -33,7 +33,7 @@ try {
        	<li><button class="btn-sm btn-primary" id="logout" onclick="location.href='/qms/assets/php/logout.php'"><span class="glyphicon glyphicon-log-out sm">&nbsp;</span>Logout</button></li>
     <?php if($_SESSION['isadmin']){ ?>
    
-        <li><button class="btn-sm btn-warning" onclick="location.href='/admin/ben/QMS/admin/index.php'"><span class="glyphicon glyphicon-user sm">&nbsp;</span>Admin</button></li>
+        <li><button class="btn-sm btn-warning" onclick="location.href='/admin/ben/qms/admin/index.php'"><span class="glyphicon glyphicon-user sm">&nbsp;</span>Admin</button></li>
 		</ul></div>
     <?php } ?>
 <?php } ?>
