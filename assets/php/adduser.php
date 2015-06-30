@@ -1,7 +1,7 @@
 <?php
-if (isset($_POST['QMS_user'])) {
+if (isset($_POST['username'])) {
     include 'PDO.php';
-    $lusername = strip_tags($_POST['user']);
+    $lusername = strip_tags($_POST['username']);
     $rname =     strip_tags($_POST['rname']);
     $email =     strip_tags($_POST['email']);
     $isadmin =   strip_tags($_POST['isadmin']);
