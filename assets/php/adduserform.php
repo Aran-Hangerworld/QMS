@@ -53,7 +53,6 @@
                 </div>
             </div>
         </div>
-
 <script>
 	 $(document).ready(function(){
 		 $("#add-user-btn").click(function(){
