@@ -38,7 +38,7 @@ if (isset($_POST['username'])) {
 	mail($email,$sub,$msg,$headers);
 	echo $newpass;
 } else {
- echo "errr";
+ echo "No Data Sent";
 }
     
 ?>

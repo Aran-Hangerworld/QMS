@@ -43,7 +43,7 @@
                     </div>
                     <div class="modal-footer">
                         <a class="btn btn-default" data-dismiss="modal">Close</a>
-                        <a class="btn btn-primary" id="edituser">Save changes</a>
+                        <a class="btn btn-primary" id="edituserbtn">Save changes</a>
                     </div>
                 </div>
             </div>

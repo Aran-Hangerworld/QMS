@@ -187,7 +187,7 @@ if($_GET['m'] == "docs"){
                     <?php } else { ?>
                     <span class="glyphicon glyphicon-remove" style="font-size:1em"></span> 
                     <?php } ?>
-                    </td><td><a class="btn-sm btn-warning" id="userbtn"><span class="glyphicon glyphicon-edit" style="font-size:1em"></span></a></td></tr>
+                    </td><td><a class="btn-sm btn-warning" id="editbtn" data-target="#edituserform"><span class="glyphicon glyphicon-edit" style="font-size:1em"></span></a></td></tr>
 				<?php } ?>
             </tbody>
         </table>
