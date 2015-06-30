@@ -165,7 +165,6 @@ if($_GET['m'] == "docs"){
 
 <?php } elseif ($_GET['m'] == "users"){
     include '../assets/php/adduserform.php';
-    include '../assets/php/edituserform.php';
     try {
 	$db = new PDO("mysql:host=$hostname;dbname=$username", $username, $password);	
 	} catch(Exception $e)  {
@@ -187,7 +186,7 @@ if($_GET['m'] == "docs"){
                     <?php if($row['QMS_isadmin'] =="1"){ ?><span class="glyphicon glyphicon-ok" style="font-size:1em"></span> 
                     <?php } else { ?>
                     <span class="glyphicon glyphicon-remove" style="font-size:1em"></span> 
-                    <?php } ?>
+                    <?php } ?><?php include '../assets/php/edituserform.php'; ?>
                     </td><td><a class="btn-sm btn-warning" data-toggle="modal" data-target="#edituserform"><span class="glyphicon glyphicon-edit" style="font-size:1em"></span></a></td></tr>
 				<?php } ?>
             </tbody>
