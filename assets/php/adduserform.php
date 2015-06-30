@@ -9,6 +9,7 @@
                         <form class="form-horizontal" role="form" id="adduserform">
                             <div class="form-group">
                                 <div class="col-sm-2">
+                                    <label type="hidden" id="id" name="id"><</label>
                                     <label for="text" class="control-label">Username</label>
                                 </div>
                                 <div class="col-sm-10">
@@ -56,7 +57,7 @@
  	         $.ajax({
     		 type: "POST",
 			 url: "assets/php/adduser.php",
-			 data: $('.form-horizontal').serialize(),	
+			 data: $('form.form-horizontal').serialize(),	
     	     success: function(response){
                 location.reload(); 
  

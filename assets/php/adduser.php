@@ -1,6 +1,7 @@
 <?php
 if (isset($_POST['username'])) {
     include 'PDO.php';
+    $id = strip_tags($_POST['id']);
     $lusername = strip_tags($_POST['username']);
     $rname =     strip_tags($_POST['rname']);
     $email =     strip_tags($_POST['email']);
@@ -23,13 +24,15 @@ if (isset($_POST['username'])) {
 	} catch(Exception $e)  {
 	    print "Error!: " . $e->getMessage();
     }
-	$sth = $db->prepare('CALL QMS_adduser(?,?,?,?,?,?)');
-	$sth->bindparam(1, $lusername, PDO::PARAM_STR);
-    $sth->bindparam(2, $rname,    PDO::PARAM_STR);
-    $sth->bindparam(3, $email, PDO::PARAM_STR);
-    $sth->bindparam(4, $isadmin,  PDO::PARAM_INT);
-    $sth->bindparam(5, $company,  PDO::PARAM_INT);
-	$sth->bindparam(6, $newpasshash, PDO::PARAM_STR);
+	$sth = $db->prepare('CALL QMS_adduser(?,?,?,?,?,?,?)');
+	$sth->bindparam(1, $id, PDO::PARAM_STR);
+    $sth->bindparam(2, $lusername, PDO::PARAM_STR);
+    $sth->bindparam(3, $rname,    PDO::PARAM_STR)
+    $sth->bindparam(4, $newpasshash, PDO::PARAM_STR);;
+    $sth->bindparam(5, $isadmin,  PDO::PARAM_INT);
+    $sth->bindparam(6, $email, PDO::PARAM_STR);
+    $sth->bindparam(7, $company,  PDO::PARAM_INT);
+	
     
     
     
