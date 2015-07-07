@@ -58,12 +58,6 @@ if($_GET['m'] == "docs"){
             	<tr><th>ID</th><th>Title</th><th>Version</th><th>Updated</th><th>Category</th><th>Edit</th></tr>
             </thead>
             <tbody>
-<<<<<<< HEAD
-            	<?php while ($row = $sth->fetch()){ ?>
-<<<<<<< HEAD
-                <tr><td><?=$row['id']?></td><td><?=$row['doc_title']?></td><td><?=$row['doc_version']?></td><td><?=$row['doc_uploadedon']?></td><td><?php $txtcat = parse_category($row['doc_category'], $db); ?><?=$txtcat['Title']?></td><td><a class="btn-sm btn-warning"><span class="glyphicon glyphicon-edit" style="font-size:1em"></span></a></td></tr>
-=======
-=======
       
       <?php while ($row = $sth->fetch()){                ?>
                       <tr><td><?=$row['doc_id']?></td><td><?=trim($row['doc_title'])?></td><td><?=$row['doc_version']?></td><td><?=$row['doc_uploadedon']?></td><td><?php
@@ -75,7 +69,6 @@ if($_GET['m'] == "docs"){
             echo trim($cattxt);
                     ?>
                           </td><td><button class="btn-sm btn-warning" data-toggle="modal" data-target=".editdoc<?=$row['doc_id']?>" id="<?=$row['doc_id']?>"><span class="glyphicon glyphicon-edit" style="font-size:1em"></span></button></td></tr>
->>>>>>> 19a48f39fe792902bf08db0f69ce275eb613626f
                  <div class="modal fade editdoc<?=$row['doc_id']?>" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
             <div class="modal-dialog">
               <div class="modal-content">
@@ -83,15 +76,9 @@ if($_GET['m'] == "docs"){
                   <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
                   <h4 class="modal-title">Edit Document</h4>
                 </div>
-<<<<<<< HEAD
-                <div class="modal-body">
-                  <div id="edit-user-form">
-                    <form class="form-horizontal<?=$row['doc_id']?>" role="form" id="update<?=$row['doc_id']?>">
-=======
                 <div class="modal-body row">
                   <div id="edit-doc-form">
                     <form class="form-horizontal<?=$row['doc_id']?>" role="form" id="updateDoc<?=$row['doc_id']?>">
->>>>>>> 19a48f39fe792902bf08db0f69ce275eb613626f
                       <input type="hidden" name="id" id="id" value="<?=$row['doc_id']?>">
                       <div class="form-group">
                         <div class="col-sm-2">
@@ -109,24 +96,10 @@ if($_GET['m'] == "docs"){
                           <input type="text" value="<?=$row['doc_version']?>" class="form-control" name="version">
                         </div>
                       </div>
-<<<<<<< HEAD
-                      <div class="form-group">
-                        <div class="col-sm-2">
-                          <label for="email" class="control-label">Updated</label>
-                        </div>
-                        <div class="col-sm-10">
-                          <input type="text" value="<?=$row['doc_uploadedby']?>" class="form-control" name="uploaded">
-                        </div>
-                      </div>
-                      <?php    
-			$sth = $db->prepare('select * from QMS where location = "s"'); 
-			$sth->execute();  
-=======
 
                       <?php    
 			$sth2 = $db->prepare('select * from QMS_nav where location = "s"'); 
 			$sth2->execute();  
->>>>>>> 19a48f39fe792902bf08db0f69ce275eb613626f
 			?>
                       <div class="form-group">
                         <div class="col-sm-2">
@@ -134,16 +107,10 @@ if($_GET['m'] == "docs"){
                         </div>
                         <div class="col-sm-10">
                           <select class="form-control" id="category" name="category">
-<<<<<<< HEAD
-                            <?php  while ($catrow = $sth->fetch()){  ?>
-                            <option value="<?=$catrow['id']?>" <?php if($row['doc_id'] == $catrow['id']){ echo "Selected";} ?>>
-                            <?=$catrow['title']?>
-=======
                             <?php  while ($catrow = $sth2->fetch()){  ?>
                             
                               <option value="<?=$catrow['ID']?>" <?php if($row['doc_id'] == $catrow['ID']){ echo "Selected";} ?>>
                             <?=$catrow['Title']?>
->>>>>>> 19a48f39fe792902bf08db0f69ce275eb613626f
                             </option>
                             <?php } ?>
                           </select>
@@ -157,54 +124,26 @@ if($_GET['m'] == "docs"){
                           <input type="checkbox" class="checkbox" name="isactive" <?php if($row['doc_status'] == 1){echo "Checked";}?>  value="1" />
                         </div>
                       </div>
-<<<<<<< HEAD
-=======
                         <input type="hidden" name="filename" value="<?=$row['doc_filename']?>"/>
                         <input type="hidden" name="filepath" value="<?=$row['doc_filepath']?>"/>
                         <input type="hidden" name="filesize" value="<?=$row['doc_filesize']?>"/>
                         <input type="hidden" name="uploadedby" value="<?=$row['doc_uploadedby']?>"/>
                         <input type="hidden" name="uploadedon" value="<?=$row['doc_uploadedon']?>"/>
->>>>>>> 19a48f39fe792902bf08db0f69ce275eb613626f
                     </form>
                   </div>
                 </div>
                 <div class="modal-footer">
-<<<<<<< HEAD
-                  <div id="success-buttons<?=$row['id']?>" style="display: none">
-=======
                   <div id="success-buttons<?=$row['doc_id']?>" style="display: none">
->>>>>>> 19a48f39fe792902bf08db0f69ce275eb613626f
                     <div class="alert alert-dimissable alert-success" style="display: none;" id="update-success<?=$row['doc_id']?>">User Details Changed!</div>
                     <button type="button" class="btn btn-default refresh" data-dismiss="modal">Continue</button>
                   </div>
                   <div id="modal-buttons<?=$row['doc_id']?>">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-<<<<<<< HEAD
-                    <button type="button" class="btn btn-primary edituser" id="<?=$row['doc_id']?>">Update</button>
-=======
                     <button type="button" class="btn btn-primary editdoc" id="<?=$row['doc_id']?>">Update</button>
->>>>>>> 19a48f39fe792902bf08db0f69ce275eb613626f
                   </div>
                 </div>
               </div>
             </div>
-<<<<<<< HEAD
-          </div>
-                <tr><td><?=$row['doc_id']?></td><td><?=$row['doc_title']?></td><td><?=$row['doc_version']?></td><td><?=$row['doc_uploadedon']?></td><td>
-                      <?php
-            $sth = $db->prepare('SELECT Title FROM QMS_nav where ID = '. $row['doc_category']);
-	        $sth->execute();
-	        while ($row = $sth->fetch()){
-                $cattxt = $row['Title'];
-            }
-            echo $cattxt;
-                    ?>
-                    </td><td><button class="btn-sm btn-warning" data-target="#editdoc<?=$row['doc_id']?>"><span class="glyphicon glyphicon-edit" style="font-size:1em"></span></button></td></tr>
->>>>>>> Bens
-				<?php } ?>
-            </tbody>
-        </table>
-=======
           </div>   
       <?php } ?>
         </tbody>
@@ -214,7 +153,6 @@ if($_GET['m'] == "docs"){
           	
 			
 
->>>>>>> 19a48f39fe792902bf08db0f69ce275eb613626f
 
 
 		</div>
@@ -318,8 +256,8 @@ if($_GET['m'] == "docs"){
                     <?php if($row['QMS_isadmin'] =="1"){ ?><span class="glyphicon glyphicon-ok" style="font-size:1em"></span> 
                     <?php } else { ?>
                     <span class="glyphicon glyphicon-remove" style="font-size:1em"></span> 
-                    <?php } ?><?php include '../assets/php/edituserform.php'; ?>
-                    </td><td><a class="btn-sm btn-warning" data-toggle="modal" data-target="#edituserform"><span class="glyphicon glyphicon-edit" style="font-size:1em"></span></a></td></tr>
+                    <?php } ?>
+                    </td><td><a class="btn-sm btn-warning" id="userbtn"><span class="glyphicon glyphicon-edit" style="font-size:1em"></span></a></td></tr>
 				<?php } ?>
             </tbody>
         </table>
