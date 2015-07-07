@@ -56,12 +56,13 @@
 <script>
 	 $(document).ready(function(){
 		 $("#add-user-btn").click(function(){
- 	         $.ajax({
+ 	        
+             $.ajax({
     		 type: "POST",
 			 url: "assets/php/adduser.php",
-			 data: $('form.form-horizontal').serialize(),	
+			 data: $('#adduserform').serialize(),	
     	     success: function(response){
-                 alert();
+                 alert(response);
                 location.reload(); 
          	},
 			 error: function(){	
