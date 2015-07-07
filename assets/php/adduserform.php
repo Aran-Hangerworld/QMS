@@ -49,6 +49,21 @@
                     <div class="modal-footer">
                         <a class="btn btn-default" data-dismiss="modal">Close</a>
                         <a class="btn btn-primary" id="add-user-btn">Add user</a>
+                        
+                        
+                        <div id="adduser-successmsg" style="display: none"> 
+                         <div class="alert alert-dimissable alert-success text-center"  >
+                            <h4>User Added Successfully</h4>
+                            <p>Password set to
+                            <h3></h3>
+                            </p>
+                            </div>
+                  <button type="button" class="btn btn-default" id="adduser-continue" data-dismiss="modal">Continue</button>
+            
+                            </div>
+                            
+                        
+                        </div>
                     </div>
                 </div>
             </div>
@@ -56,14 +71,14 @@
 <script>
 	 $(document).ready(function(){
 		 $("#add-user-btn").click(function(){
- 	        
              $.ajax({
     		 type: "POST",
 			 url: "assets/php/adduser.php",
 			 data: $('#adduserform').serialize(),	
     	     success: function(response){
                  alert(response);
-                location.reload(); 
+                location.reload();
+                 $('#adduserform').hide();
          	},
 			 error: function(){	
 				alert("An error occurred: " & result.errorMessage);
