@@ -38,7 +38,6 @@
                   location.href('http://www.hangerworld.co.uk/qms/index.php?err=101'); 
                 } else if(response =="1") {                  
                   location.href('http://www.hangerworld.co.uk/qms/index.php?<?=$_SESSION['user']?>');  
-                    
                 }
          	},
 			 error: function(){	
