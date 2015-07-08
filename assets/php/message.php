@@ -11,7 +11,7 @@ if(isset($_GET['err'])){
     } elseif($errcode=="101"){
         $errmsg = "LOGIN FAILED. CHECK YOUR CREDENTIALS AND TRY AGAIN";   
     } elseif($errcode="102"){
-        $errmsg = "YOU MUST BE LOGGED IN TO ACCESS THIS SECTION";   
+        $errmsg = "PLEASE LOG IN TO VIEW DOCUMENTS". $_SESSION['user'];   
                             }?>
     <div class="alert alert-danger alert-dismissable text-center">
 		<?php echo $errmsg; ?>

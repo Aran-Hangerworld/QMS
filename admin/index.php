@@ -176,6 +176,7 @@ if($_GET['m'] == "docs"){
             </thead>
             <tbody>
             	<?php while ($row = $sth->fetch()){ ?>
+                
                  <div class="modal fade editdoc<?=$row['doc_id']?>" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
             <div class="modal-dialog">
               <div class="modal-content">
@@ -205,8 +206,8 @@ if($_GET['m'] == "docs"){
                       </div>
 
                       <?php    
-			$sth = $db->prepare('select * from QMS_nav where location = "s"'); 
-			$sth->execute();  
+			$catsth = $db->prepare('select * from QMS_nav where location = "s"'); 
+			$catsth->execute();  
 			?>
                       <div class="form-group">
                         <div class="col-sm-2">
@@ -214,7 +215,7 @@ if($_GET['m'] == "docs"){
                         </div>
                         <div class="col-sm-10">
                           <select class="form-control" id="category" name="category">
-                            <?php  while ($catrow = $sth->fetch()){  ?>
+                            <?php  while ($catrow = $catsth->fetch()){  ?>
                             
                               <option value="<?=$catrow['ID']?>" <?php if($row['doc_id'] == $catrow['ID']){ echo "Selected";} ?>>
                             <?=$catrow['Title']?>
