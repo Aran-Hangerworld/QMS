@@ -1,4 +1,4 @@
-        <div class="modal fade in" id="adduserform">
+        <div class="modal fade in" id="adduser">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -7,11 +7,6 @@
                     </div>
                     <div class="modal-body">
                         <form class="form-horizontal" role="form" id="adduserform">
-                            <div class="form-group">
-                                <div class="col-sm-2">   
-                                    <label type="hidden" id="id" name="id"></label>  
-                                </div>    
-                            </div>
                             <div class="form-group">
                                 <div class="col-sm-2">
                                     <label for="text" class="control-label">Username</label>
@@ -40,50 +35,49 @@
                                 <div class="col-sm-offset-2 col-sm-10">
                                     <div class="checkbox">
                                         <label>
-                                            <input type="checkbox" name="isadmin">Admin</label>
+                                            <input type="checkbox" id="isadmin" name="isadmin">Admin</label>
                                     </div>
                                 </div>
                             </div>
                         </form>
                     </div>
                     <div class="modal-footer">
-                        <a class="btn btn-default" data-dismiss="modal">Close</a>
-                        <a class="btn btn-primary" id="add-user-btn">Add user</a>
-                        
-                        
-                        <div id="adduser-successmsg" style="display: none"> 
-                         <div class="alert alert-dimissable alert-success text-center"  >
-                            <h4>User Added Successfully</h4>
-                            <p>Password set to
-                            <h3></h3>
+                        <div class="adduser-success" id="adduser-success-msg" style="display:none">
+                            <div class=" alert alert-dissmisable alert-success">
+                            <h3>User Created!</h3>
+                            <p>Your password is set to:
+                            <h3><span <?php echo $newpass ?></spa>></span></h3>
                             </p>
+                            <a class="btn btn-default" data-dismiss="modal">Submit</a>    
                             </div>
-                  <button type="button" class="btn btn-default" id="adduser-continue" data-dismiss="modal">Continue</button>
-            
-                            </div>
-                            
-                        
+                        </div>
+                        <div id="modal-buttons">
+                        <a class="btn btn-default" data-dismiss="modal">Close</a>
+                        <a class="btn btn-primary" id="addusrbtn">Save changes</a>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+
 <script>
 	 $(document).ready(function(){
-		 $("#add-user-btn").click(function(){
+
+		 $("#addusrbtn").click(function(){
              $.ajax({
     		 type: "POST",
-			 url: "assets/php/adduser.php",
-			 data: $('#adduserform').serialize(),	
+			 url: "../assets/php/adduser.php",
+			 data: $("#adduserform").serialize(),	
     	     success: function(response){
-                 alert(response);
-                location.reload();
-                 $('#adduserform').hide();
+                location.reload(); 
+                $('#adduser-success-msg').show();
          	},
 			 error: function(){	
 				alert("An error occurred: " & result.errorMessage);
-			},
-    	 	});
-		 });
-	 });
+			}
+    	 	}); 
+             
+		 });       
+    });
+
 </script>

@@ -1,82 +1,82 @@
-<?php
-session_start();
-	$isadmin = $_SESSION['isadmin'];
-    include 'assets/php/PDO.php'; 
-    include 'assets/php/header.php'; ?>
-
-<?php include 'assets/php/loginform.php'; ?>
-<?php include 'assets/php/nav.php'; ?>
-<div class="container">
-  <div class="row">
-    <div class="col-md-12">
-      <?php 
-			$pageid = 0;
-			include 'assets/php/message.php'; ?>
-    </div>
-    <div class="col-md-3 col-sm-12">
-      <?php include 'assets/php/sidenav.php'; ?>
-    </div>
-    <?php 
-try {
-	$db = new PDO("mysql:host=$hostname;dbname=$username", $username, $password);	
-	} catch(Exception $e)  {
-	    print "Error!: " . $e->getMessage();
-    }
-	$sth = $db->prepare('select * from QMS_pagecontent where refid = 0');
-	$sth->execute(); 
-	while ($row = $sth->fetch()){
-		?>
-    <div class="col-md-9 col-sm-12">
-      <div class="jumbotron">
-        <h1>
-          <?=$row['jumbotron_title']?>
-            <?=$_Session['user']?>
-        </h1>
-        <p>
-          <?=$row['jumbotron_content']?>
-        </p>
-      </div>
-      <div class="row">
-        <div class="col-md-3 col-sm-6 col-centered"> <span class="glyphicon glyphicon-user test"></span><br />
-          <h4>Customer Services</h4>
-        </div>
-        <div class="col-md-3 col-sm-6 col-centered"> <span class="glyphicon glyphicon-ok test"></span><br />
-          <h4>QMS</h4>
-        </div>
-        <div class="col-md-3 col-sm-6 col-centered"> <span class="glyphicon glyphicon-th-large test"></span><br />
-          <h4>Memos</h4>
-        </div>
-        <div class="col-md-3 col-sm-6 col-centered"> <span class="glyphicon glyphicon-link test"></span><br />
-          <h4>Other?</h4>
-        </div>
-      </div>
-      <div class="row">
-        <div class="divider"></div>
-        <div class="col-md-12 col-sm-12">
-          <hr class="small">
-          <? 
-		
-		if($row['page_subtitle'] <> ""){
-			echo "<h2>"+ $row['page_subtitle'] +"</h2>";
-		}?>
-          <?=$row['page_content']?>
-        </div>
-      </div>
-      <? } ?>
-    </div>
-  </div>
-</div>
-<?php 
-	include 'assets/php/footer.php'; 
-	$db = null;  
-?>
-<!-- jQuery (necessary for Bootstrap's JavaScript plugins) --> 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script> 
-<!-- Include all compiled plugins (below), or include individual files as needed --> 
-<!-- Latest compiled and minified JavaScript --> 
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
-
-
-</body>
-</html>
-
+<?php
+session_start();
+	$isadmin = $_SESSION['isadmin'];
+    include 'assets/php/PDO.php'; 
+    include 'assets/php/header.php'; ?>
+
+<?php include 'assets/php/loginform.php'; ?>
+<?php include 'assets/php/nav.php'; ?>
+<div class="container">
+  <div class="row">
+    <div class="col-md-12">
+      <?php 
+			$pageid = 0;
+			include 'assets/php/message.php'; ?>
+    </div>
+    <div class="col-md-3 col-sm-12">
+      <?php include 'assets/php/sidenav.php'; ?>
+    </div>
+    <?php 
+try {
+	$db = new PDO("mysql:host=$hostname;dbname=$username", $username, $password);	
+	} catch(Exception $e)  {
+	    print "Error!: " . $e->getMessage();
+    }
+	$sth = $db->prepare('select * from QMS_pagecontent where refid = 0');
+	$sth->execute(); 
+	while ($row = $sth->fetch()){
+		?>
+    <div class="col-md-9 col-sm-12">
+      <div class="jumbotron">
+        <h1>
+          <?=$row['jumbotron_title']?>
+            <?=$_Session['user']?>
+        </h1>
+        <p>
+          <?=$row['jumbotron_content']?>
+        </p>
+      </div>
+      <div class="row">
+        <div class="col-md-3 col-sm-6 col-centered"> <span class="glyphicon glyphicon-user test"></span><br />
+          <h4>Customer Services</h4>
+        </div>
+        <div class="col-md-3 col-sm-6 col-centered"> <span class="glyphicon glyphicon-ok test"></span><br />
+          <h4>QMS</h4>
+        </div>
+        <div class="col-md-3 col-sm-6 col-centered"> <span class="glyphicon glyphicon-th-large test"></span><br />
+          <h4>Memos</h4>
+        </div>
+        <div class="col-md-3 col-sm-6 col-centered"> <span class="glyphicon glyphicon-link test"></span><br />
+          <h4>Other?</h4>
+        </div>
+      </div>
+      <div class="row">
+        <div class="divider"></div>
+        <div class="col-md-12 col-sm-12">
+          <hr class="small">
+          <? 
+		
+		if($row['page_subtitle'] <> ""){
+			echo "<h2>"+ $row['page_subtitle'] +"</h2>";
+		}?>
+          <?=$row['page_content']?>
+        </div>
+      </div>
+      <? } ?>
+    </div>
+  </div>
+</div>
+<?php 
+	include 'assets/php/footer.php'; 
+	$db = null;  
+?>
+<!-- jQuery (necessary for Bootstrap's JavaScript plugins) --> 
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script> 
+<!-- Include all compiled plugins (below), or include individual files as needed --> 
+<!-- Latest compiled and minified JavaScript --> 
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
+
+
+</body>
+</html>
+
