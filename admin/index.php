@@ -164,14 +164,23 @@ if($_GET['m'] == "docs"){
 	} catch(Exception $e)  {
 	    print "Error!: " . $e->getMessage();
     }
-    $sth = $db->prepare('select * from QMS_users');
-	$sth->execute();
-	?>
     
+    if(isset($_GET['f'])){
+	$f = $_GET['f'];
+	$f = intval($_GET['f']);
+} else {
+	$f= 1;
+}
+
+if($f == 0 || $f == 1){
+     $q = "select * from QMS_users where QMS_isactive = $f";    
+}
+    $sth = $db->prepare($q);
+    $sth->execute();
+	?>
+    <a class="btn btn-default" data-toggle="modal" data-target="#adduser"><span class="glyphicon glyphicon-plus" style="font-size:1em;"></span>Add a user</a>
+    <a href="?m=users&f=1" class="btn btn-default">Active Users</a><a href="?m=users&f=0" class="btn btn-default">Inactive Users</a>
     <div class="table-responsive">
-        <a class="btn btn-default" data-toggle="modal" id="1">Active users</a>
-        <a class="btn btn-default" data-toggle="modal" data-target="#" id="0">Inactive users</a>
-       <a class="btn btn-default" data-toggle="modal" data-target="#adduser" style="position: relative; top:25px; left:400px;"><span class="glyphicon glyphicon-plus" style="font-size:1em;"></span>Add a user</a>
 		<table width="100%" align="center" class="table hover" id="usertable">
         	<thead>
             	<tr><th>ID</th><th>User</th><th>Name</th><th>Email Address</th><th>Last Login</th><th>Admin</th><th>Edit</th></tr>
@@ -180,7 +189,7 @@ if($_GET['m'] == "docs"){
             	<?php while ($row = $sth->fetch()){ ?>
                 
                 
-                <tr><td><?=$row['QMS_id']?></td><td><?=$row['QMS_user']?></td><td><?=$row['QMS_realname']?></td><td><?=$row['QMS_email']?></td><td><?=$row['QMS_lastlogin']?></td><td>
+                <tr id="<?=$row['QMS_id']?>"><td><?=$row['QMS_id']?></td><td><?=$row['QMS_user']?></td><td><?=$row['QMS_realname']?></td><td><?=$row['QMS_email']?></td><td><?=$row['QMS_lastlogin']?></td><td>
                     <?php if($row['QMS_isadmin'] =="1"){ ?><span class="glyphicon glyphicon-ok" style="font-size:1em"></span> 
                     <?php } else { ?>
                     <span class="glyphicon glyphicon-remove" style="font-size:1em"></span> 
@@ -453,6 +462,26 @@ $(document).ready(function(){
     
     
 });    
+</script>
+<script>
+	 $(document).ready(function(){
+		 $(".edituser").click(function(){
+             var x = this.id
+             $.ajax({
+    		 type: "POST",
+			 url: "../assets/php/edituser.php",
+			 data: $(".form-horizontal"+x).serialize(),	
+    	     success: function(response){
+                location.reload(); 
+                $('#update-success'+x).show();
+                 },
+			 error: function(){	
+				alert("An error occurred: " & result.errorMessage);
+			}
+    	 	}); 
+		 });
+    });
+
 </script>
 </body>
 </html>

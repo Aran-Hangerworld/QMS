@@ -14,6 +14,14 @@
                                 <div class="col-sm-10">
                                     <input type="text" class="form-control" id="username" placeholder="Username" name="username">
                                 </div>
+                                <div class="col-sm-1">
+                                    <div id="usersuccess" style="display:none">
+                                    <span class="glyphicon glyphicon-ok success">&nbsp;</span>
+                                    </div>
+                                    <div id="userfailure" style="display:none">
+                                    <span class="glyphicon glyphicon-ok failure">&nbsp;</span>
+                                    </div>
+                                </div>
                             </div>
                             <div class="form-group">
                                 <div class="col-sm-2">
@@ -62,6 +70,33 @@
 
 <script>
 	 $(document).ready(function(){
+         
+         $("#usersuccess").hide();
+         $("#userfailure").hide();
+         
+         
+         $("#username").blur(function(){
+       var user = $("#username").val();
+            $.ajax({
+            type: "POST",
+            url: "../assets/php/adduser.php",
+            data: $("#username").serialize(),
+            success: function(cnt){
+                if(cnt == 0){
+                    $("#usersuccess").show();
+                    $("#userfailure").hide();   
+                }else{
+                    $("#usersuccess").hide();
+                    $("#userfailure").show();     
+                },
+                
+            },
+                error: function(){	
+				alert("An error occurred: " & result.errorMessage);
+       
+            }
+            });
+         });
 
 		 $("#addusrbtn").click(function(){
              $.ajax({

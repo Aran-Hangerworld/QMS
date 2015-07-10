@@ -37,7 +37,7 @@ if (isset($_POST['username'])) {
     $sth->bindparam(3, $isadmin,  PDO::PARAM_INT);
     $sth->bindparam(4, $email, PDO::PARAM_STR);
     $sth->bindparam(5, $company, PDO::PARAM_STR);
-    $sth->bindparam(6, $isactive, PDO::PARAM_STR);
+    $sth->bindparam(6, $isactive, PDO::PARAM_INT);
 	$sth->execute();
 	
 	# Email confirm
