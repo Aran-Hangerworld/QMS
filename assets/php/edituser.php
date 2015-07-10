@@ -14,9 +14,10 @@ if (isset($_POST['username'])) {
            $isadmin = 0;
     }
     $company = "Hangerworld";
+    
     if($isactive){
         $isactive = 1;
-    }else{
+    }else {
         $isactive = 0;
     }
     # Get new password
@@ -39,13 +40,12 @@ if (isset($_POST['username'])) {
     $sth->bindparam(5, $company, PDO::PARAM_STR);
     $sth->bindparam(6, $isactive, PDO::PARAM_INT);
 	$sth->execute();
-	
 	# Email confirm
-	#$sub = "User Update - Hangerworld Suppport";
-	#$msg = "Hi $rname,\r\n Your user account has been updated for you to use on the Hangerworld support site.\r\n Username: $lusername \r\n Password: $newpass \r\n Log in via http://www.hangerworld.co.uk/qms/ \r\n Regards \r\n IT Dept.";
-	#$headers = ""; 
-#mail($email,$sub,$msg,$headers);
-#	echo $newpass;
+	$sub = "User Update - Hangerworld Suppport";
+	$msg = "Hi $rname,\r\n Your user account has been updated for you to use on the Hangerworld support site.\r\n Username: $lusername \r\n Password: $newpass \r\n Log in via http://www.hangerworld.co.uk/qms/ \r\n Regards \r\n IT Dept.";
+	$headers = ""; 
+mail($email,$sub,$msg,$headers);
+	echo $newpass;
 }  
 ?>
 
