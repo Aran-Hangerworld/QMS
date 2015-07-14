@@ -14,7 +14,7 @@
                           <label for="username" class="control-label">Username</label>
                         </div>
                         <div class="col-sm-10">
-                          <input type="text" value="<?=$row['QMS_user']?>" class="form-control" name="lusername">
+                          <input type="text" value="<?=$row['QMS_user']?>" class="form-control" name="username">
                         </div>
                       </div>
                       <div class="form-group">
@@ -22,7 +22,7 @@
                           <label for="name" class="control-label">Name</label>
                         </div>
                         <div class="col-sm-10">
-                          <input type="text" value="<?=$row['QMS_realname']?>" class="form-control" name="name">
+                          <input type="text" value="<?=$row['QMS_realname']?>" class="form-control" name="rname">
                         </div>
                       </div>
                       <div class="form-group">
@@ -30,26 +30,25 @@
                           <label for="email" class="control-label">Email</label>
                         </div>
                         <div class="col-sm-10">
-                          <input type="text" value="<?=$row['QMS_email']?>" class="form-control" name="email">
+                          <input type="email" value="<?=$row['QMS_email']?>" class="form-control" id="email" name="email">
                         </div>
                       </div>
-                                      <div class="form-group">
+                          <div class="form-group">
                         <div class="col-sm-2">
                           <label for="isactive" class="control-label">Active</label>
                         </div>
                         <div class="col-sm-10">
-                          <input type="checkbox" class="checkbox" name="isactive" <?php if($row['QMS_isactive'] == 1){echo "Checked";}?>  value="1" />
+                          <input type="checkbox" class="checkbox" id="isactive" name="isactive" <?php if($row['QMS_isactive'] == 1){echo "Checked";}?>  value="1" />
                         </div>
-                      </div>
-                      <div class="form-group">
+                        </div>
+                        <div class="form-group">
                         <div class="col-sm-2">
-                          <label for="isadmin" class="control-label">Admin</label>
+                          <label for="name" class="control-label">Admin</label>
                         </div>
                         <div class="col-sm-10">
-                          <input type="checkbox" class="checkbox" name="isadmin" <?php if($row['QMS_isadmin'] == 1){echo "Checked";}?>  value="1" />
+                          <input type="checkbox" class="checkbox" value="<?=$row['QMS_isadmin']?>" <?php if($row['QMS_isadmin'] == 1){echo "Checked";}?>  value="1" >
                         </div>
                       </div>
-           
                     </form>
                   </div>
                 </div>

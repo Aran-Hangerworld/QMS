@@ -1,4 +1,4 @@
-        <div class="modal fade in" id="adduser">
+<div class="modal fade in" id="adduser">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -11,15 +11,15 @@
                                 <div class="col-sm-2">
                                     <label for="text" class="control-label">Username</label>
                                 </div>
-                                <div class="col-sm-10">
+                                <div class="col-sm-9">
                                     <input type="text" class="form-control" id="username" placeholder="Username" name="username">
                                 </div>
                                 <div class="col-sm-1">
-                                    <div id="usersuccess" style="display:none">
+                                    <div id="user-success" style="display:none">
                                     <span class="glyphicon glyphicon-ok success">&nbsp;</span>
                                     </div>
-                                    <div id="userfailure" style="display:none">
-                                    <span class="glyphicon glyphicon-ok failure">&nbsp;</span>
+                                    <div id="user-failure" style="display:none">
+                                    <span class="glyphicon glyphicon-remove failure">&nbsp;</span>
                                     </div>
                                 </div>
                             </div>
@@ -54,14 +54,14 @@
                             <div class=" alert alert-dissmisable alert-success">
                             <h3>User Created!</h3>
                             <p>Your password is set to:
-                            <h3><span <?php echo $newpass ?></spa>></span></h3>
+                            <h3><span <?php echo $newpass?></spa>></span></h3>
                             </p>
-                            <a class="btn btn-default" data-dismiss="modal">Submit</a>    
+                            <a class="btn btn-default" data-dismiss="modal" id="adduser-submit">Add user</a>    
                             </div>
                         </div>
                         <div id="modal-buttons">
                         <a class="btn btn-default" data-dismiss="modal">Close</a>
-                        <a class="btn btn-primary" id="addusrbtn">Save changes</a>
+                        <a class="btn btn-primary" id="addusrbtn">Next</a>
                         </div>
                     </div>
                 </div>
@@ -71,31 +71,29 @@
 <script>
 	 $(document).ready(function(){
          
-         $("#usersuccess").hide();
-         $("#userfailure").hide();
-         
+         $("#adduser-success-msg").hide();
          
          $("#username").blur(function(){
-       var user = $("#username").val();
-            $.ajax({
+                $.ajax({
             type: "POST",
-            url: "../assets/php/adduser.php",
-            data: $("#username").serialize(),
+            url: "../assets/php/checkuser.php",
+            data: $("#adduserform").serialize(),
             success: function(cnt){
+                alert(cnt);
                 if(cnt == 0){
-                    $("#usersuccess").show();
-                    $("#userfailure").hide();   
+                    $('#user-success').show();
+                    $('#user-failure').hide();   
                 }else{
-                    $("#usersuccess").hide();
-                    $("#userfailure").show();     
-                },
-                
+                    $('#user-success').hide();
+                    $('#user-failure').show();     
+                }
             },
                 error: function(){	
 				alert("An error occurred: " & result.errorMessage);
        
             }
             });
+         
          });
 
 		 $("#addusrbtn").click(function(){
@@ -103,8 +101,7 @@
     		 type: "POST",
 			 url: "../assets/php/adduser.php",
 			 data: $("#adduserform").serialize(),	
-    	     success: function(response){
-                location.reload(); 
+    	     success: function(response){ 
                 $('#adduser-success-msg').show();
          	},
 			 error: function(){	
@@ -112,7 +109,12 @@
 			}
     	 	}); 
              
-		 });       
+		 });   
+         $("#adduser-submit").click(function(){
+             location.reload();
+         });
+                                    
     });
+    
 
 </script>
