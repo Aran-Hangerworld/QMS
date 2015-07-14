@@ -53,11 +53,10 @@
                         <div class="adduser-success" id="adduser-success-msg" style="display:none">
                             <div class=" alert alert-dissmisable alert-success">
                             <h3>User Created!</h3>
-                            <p>Your password is set to:
-                            <h3><span <?php echo $newpass?></spa>></span></h3>
-                            </p>
-                            <a class="btn btn-default" data-dismiss="modal" id="adduser-submit">Add user</a>    
+                            Your password is set to:
+                                <span><?php echo $newpass?> </span>
                             </div>
+                        <a class="btn btn-default" data-dismiss="modal" id="adduser-submit">Add user</a>
                         </div>
                         <div id="modal-buttons">
                         <a class="btn btn-default" data-dismiss="modal">Close</a>
@@ -79,7 +78,7 @@
             url: "../assets/php/checkuser.php",
             data: $("#adduserform").serialize(),
             success: function(cnt){
-                alert(cnt);
+                
                 if(cnt == 0){
                     $('#user-success').show();
                     $('#user-failure').hide();   
@@ -103,6 +102,7 @@
 			 data: $("#adduserform").serialize(),	
     	     success: function(response){ 
                 $('#adduser-success-msg').show();
+                 $('#modal-buttons').hide();
          	},
 			 error: function(){	
 				alert("An error occurred: " & result.errorMessage);
@@ -111,6 +111,7 @@
              
 		 });   
          $("#adduser-submit").click(function(){
+             
              location.reload();
          });
                                     
