@@ -1,11 +1,10 @@
 <?php
-session_start();
+    session_start();
 	$isadmin = $_SESSION['isadmin'];
     include 'assets/php/PDO.php'; 
-    include 'assets/php/header.php'; ?>
-
-<?php include 'assets/php/loginform.php'; ?>
-<?php include 'assets/php/nav.php'; ?>
+    include 'assets/php/header.php';
+    include 'assets/php/loginform.php'; 
+    include 'assets/php/nav.php'; ?>
 <div class="container">
   <div class="row">
     <div class="col-md-12">
@@ -36,7 +35,7 @@ try {
           <?=$row['jumbotron_content']?>
         </p>
       </div>
-      <div class="row">
+  <!--    <div class="row">
         <div class="col-md-3 col-sm-6 col-centered"> <span class="glyphicon glyphicon-user test"></span><br />
           <h4>Customer Services</h4>
         </div>
@@ -49,20 +48,35 @@ try {
         <div class="col-md-3 col-sm-6 col-centered"> <span class="glyphicon glyphicon-link test"></span><br />
           <h4>Other?</h4>
         </div>
-      </div>
+      </div> -->
       <div class="row">
-        <div class="divider"></div>
+        <div class="divider"><hr class="small"></div>
         <div class="col-md-12 col-sm-12">
-          <hr class="small">
-          <? 
-		
-		if($row['page_subtitle'] <> ""){
-			echo "<h2>"+ $row['page_subtitle'] +"</h2>";
-		}?>
-          <?=$row['page_content']?>
+            <?php if(!isset($_SESSION['lastlogin'])){
+            echo "<h1>Please log in to see latest updates</h1>";
+        } else { ?>
+            <h1>Latest Updates</h1>
+            <table class="table-hover" id="updatetable" style="width: 100%">
+                <thead><th>Doc Title</th><th>Doc Category</th><th>Updated On</th><th>Updated By</th></thead><tbody>
+          <?php 
+	       try {
+		      $db = new PDO("mysql:host=$hostname;dbname=$username", $username, $password);	
+		   } catch(Exception $e)  {
+		      print "Error!: " . $e->getMessage();
+	       }
+	       $sthUpdates = $db->prepare('CALL QMS_Updates');
+	       $sthUpdates->bindparam(1, $_SESSION['lastlogin'], PDO::PARAM_STR);
+	       $sthUpdates->bindparam(2, date( 'Y-m-d', time() ), PDO::PARAM_STR);    
+	       $sthUpdates->execute();  
+            while ($updaterow = $sthUpdates->fetch()){ ?>    
+                <tr><td><?=$updaterow['doc_title']?></td><td><?=$updaterow['doc_category']?></td><td><?=$updaterow['doc_uploadedon']?></td><td><?=$updaterow['doc_uploadedby']?></</td></tr>    
+            <?php } ?>
+                </tbody>
+            </table>
+            <?php } ?>
         </div>
       </div>
-      <? } ?>
+      <?php } ?>
     </div>
   </div>
 </div>

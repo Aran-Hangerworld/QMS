@@ -3,44 +3,41 @@ session_start();
 if($_SESSION['isadmin'] <> 1){
     header('Location: http://www.hangerworld.co.uk/qms/index.php?err=100');
 }
-include '../assets/php/PDO.php'; ?>
-<?php include '../assets/php/header.php'; ?>
-<?php include '../assets/php/nav.php'; ?>
-<?php include '../assets/php/functions.php'; ?>
-<?php 
+include '../assets/php/PDO.php';
+include '../assets/php/header.php'; 
+include '../assets/php/nav.php';
+include '../assets/php/functions.php';
 $pageid = 'admin';
 try {
 	$db = new PDO("mysql:host=$hostname;dbname=$username", $username, $password);	
 	} catch(Exception $e)  {
 	    print "Error!: " . $e->getMessage();
     } ?>
-
 <div class="container">
-
 	<div class="row">
 		<div class="col-md-12">
     		<?php include '../assets/php/message.php'; ?>    
 		</div>
-  		
-  <div class="col-md-12 col-sm-12">
-<div class="panel panel-info">
-<div class="panel-heading">
-  <h4>Administration</h4></div>  
-      
-      <div class="panel-body">
-      <div class="col-md-3 col-sm-6 col-centered"><a href="?m=docs"><span class="glyphicon glyphicon-file adminicons"></span><br />
-        <h5>Manage Documents</h5></a>
+    </div>  		
+    <div class="row">
+  <div class="col-md-12 col-sm-6">
+      <div class="panel panel-info col-centered">
+          <div class="panel-body col-centered">
+      <div class="col-md-2 col-sm-4 col-centered"><a href="?m" data-toggle="tooltip" data-placement="bottom" title="Dashboard"><span class="glyphicon glyphicon-cog adminicons"></span><br />
+        <h5></h5></a>
+      </div>    
+      <div class="col-md-2 col-sm-4 col-centered"><a href="?m=docs" data-toggle="tooltip" data-placement="bottom" title="Manage Documents"><span class="glyphicon glyphicon-file adminicons"></span></a>
       </div>
-      <div class="col-md-3 col-sm-6 col-centered"><a href="?m=users"><span class="glyphicon glyphicon-user adminicons"></span><br />
-        <h5>Manage Users</h5></a>
+      <div class="col-md-2 col-sm-4 col-centered"><a href="?m=users" data-toggle="tooltip" data-placement="bottom" title="Manage Users"><span class="glyphicon glyphicon-user adminicons"></span></a>
       </div>
-      <div class="col-md-3 col-sm-6 col-centered"><a href="?m=pages"><span class="glyphicon glyphicon-th-list adminicons"></span><br />
-        <h5>Manage Page Content</h5></a>
+      <div class="col-md-2 col-sm-4 col-centered"><a href="?m=pages" data-toggle="tooltip" data-placement="bottom" title="Manage Page Content"><span class="glyphicon glyphicon-th-list adminicons"></span></a>
       </div>
-      <div class="col-md-3 col-sm-6 col-centered"><a href="?m=menus"><span class="glyphicon glyphicon-list-alt adminicons"></span><br />
-        <h5>Manage Menus / Categories</h5></a>
+      <div class="col-md-2 col-sm-4 col-centered"><a href="?m=menus" data-toggle="tooltip" data-placement="bottom" title="Manage Menus / Categories"><span class="glyphicon glyphicon-list-alt adminicons"></span></a>
       </div>
-      </div></div>  
+      </div>  
+        </div>
+    </div>
+    </div>
 <?php 
 if($_GET['m'] == "docs"){
     include '../assets/php/uploadform.php';
@@ -49,10 +46,37 @@ if($_GET['m'] == "docs"){
 	} catch(Exception $e)  {
 	    print "Error!: " . $e->getMessage();
     }
-	$sth = $db->prepare('select * from QMS_Content');
-	$sth->execute(); ?>
-   	   <div class="table-responsive">
-       <button class="btn btn-default" data-toggle="modal" data-target="#upload-form" style="position: relative; top:25px; left:400px;"><span class="glyphicon glyphicon-plus" style="font-size:1em;"></span>Add a Document</button>
+    if(isset($_GET['catfilter']) && strlen($_GET['catfilter']) == 1){
+        $c = strip_tags($_GET['catfilter']);
+        $c = intval($c);
+        $qstr = " AND doc_category = $c";
+    }
+    if(isset($_GET['f'])){
+        $f = intval($_GET['f']);
+        if($f == 0){
+            $q = "select * from QMS_Content where doc_status = 0";    
+        }
+    } else {
+        $q = "select * from QMS_Content where doc_status = 1"; 
+    }
+    if(isset($qstr)){
+        $q .= $qstr;
+    }
+	$sth = $db->prepare($q);
+    $sth->execute(); ?> <a class="btn btn-default" data-toggle="modal" data-target="#upload-form" style="margin:5px;"><span class="glyphicon glyphicon-plus" style="font-size:1em;"></span>Add a Document</a>
+    <a href="?m=docs&f=1" class="btn btn-default">Active Docs</a><a href="?m=docs&f=0" class="btn btn-default">Inactive Docs</a>
+    <div class="btn-group">
+        <select class="form-control" id="catfilter">
+            <option disabled selected> Filter By Category</option>
+ <?php
+            $sth2 = $db->prepare('SELECT ID, Title FROM QMS_nav where Location = "s"');
+	        $sth2->execute();
+	        while ($crow = $sth2->fetch()){
+                echo "<option value='".$crow['ID']."'>".$crow['Title']."</option>";
+            } ?>
+        </select>
+    </div>
+   	<div class="table-responsive">      
       <table width="100%" align="center" class="table hover" id="doctable">
         	<thead>
             	<tr><th>ID</th><th>Title</th><th>Version</th><th>Updated</th><th>Category</th><th>Edit</th></tr>
@@ -68,7 +92,7 @@ if($_GET['m'] == "docs"){
             }
             echo trim($cattxt);
                     ?>
-                          </td><td><button class="btn-sm btn-warning" data-toggle="modal" data-target=".editdoc<?=$row['doc_id']?>" id="<?=$row['doc_id']?>"><span class="glyphicon glyphicon-edit" style="font-size:1em"></span></button></td></tr>
+            </td><td><button class="btn-sm btn-warning" data-toggle="modal" data-target=".editdoc<?=$row['doc_id']?>" id="<?=$row['doc_id']?>"><span class="glyphicon glyphicon-edit" style="font-size:1em"></span></button></td></tr>
                  <div class="modal fade editdoc<?=$row['doc_id']?>" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
             <div class="modal-dialog">
               <div class="modal-content">
@@ -134,8 +158,8 @@ if($_GET['m'] == "docs"){
                 </div>
                 <div class="modal-footer">
                   <div id="success-buttons<?=$row['doc_id']?>" style="display: none">
-                    <div class="alert alert-dimissable alert-success" style="display: none;" id="update-success<?=$row['doc_id']?>">User Details Changed!</div>
-                    <button type="button" class="btn btn-default refresh" data-dismiss="modal">Continue</button>
+                    <div class="alert alert-dimissable alert-success" style="display: none;" id="update-success<?=$row['doc_id']?>">Document Details Changed!</div>
+                    <button type="button" class="btn btn-default refresh" data-dismiss="modal" onclick="location.href='?m=docs'">Continue</button>
                   </div>
                   <div id="modal-buttons<?=$row['doc_id']?>">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -148,13 +172,6 @@ if($_GET['m'] == "docs"){
       <?php } ?>
         </tbody>
       </table>
-
-		
-          	
-			
-
-
-
 		</div>
 
 <?php } elseif ($_GET['m'] == "users"){
@@ -242,7 +259,7 @@ if($_GET['m'] == "docs"){
                 </div>
                 <div class="modal-footer">
                   <div id="success-buttons<?=$row['doc_id']?>" style="display: none">
-                    <div class="alert alert-dimissable alert-success" style="display: none;" id="update-success<?=$row['doc_id']?>">User Details Changed!</div>
+                    <div class="alert alert-dimissable alert-success" style="display: none;" id="update-success<?=$row['doc_id']?>">Document Details Changed!</div>
                     <button type="button" class="btn btn-default refresh" data-dismiss="modal">Continue</button>
                   </div>
                   <div id="modal-buttons<?=$row['doc_id']?>">
@@ -271,10 +288,205 @@ if($_GET['m'] == "docs"){
 
 } elseif ($_GET['m'] == "mess"){
     
-} else {
-    echo "Dashboard";
+} else { 
+  try {
+	$db = new PDO("mysql:host=$hostname;dbname=$username", $username, $password);	
+	} catch(Exception $e)  {
+	    print "Error!: " . $e->getMessage();
+    }
+	$sth = $db->prepare('select * from QMS_Content');
+	$sth->execute();  
+    $docarr = $sth->fetchAll();
+    $doccnt = Count($docarr);  
+      ?>
+	       
+    <h1>Dashboard</h1>
+      <div class="col-md-3">
+          <div class="panel panel-success">
+              <div class="panel-heading">
+                <div class="row">
+                  <div class="col-xs-6">
+                    <i class="glyphicon glyphicon-file" style="font-size:5em;"></i>
+                  </div>
+                  <div class="col-xs-6 text-right">
+                    <p class="announcement-heading"> <span id="docnum" style="color: black;">0</span></p>
+                    <p class="announcement-text"><a href="?m=docs">Active Docs</a></p>
+                  </div>
+                </div>
+              </div>
+            </div>
+<script>
+$(document).ready(function(){
+   
     
-}?>
+    var percent_number_step = $.animateNumber.numberStepFactories.append('')
+$('#docnum').animateNumber(
+  {
+    number: <?=$doccnt?>,
+    color: 'Black',
+    'font-size': '40px',
+
+    easing: 'easeInQuad',
+
+    numberStep: percent_number_step
+  },
+  3000
+);
+    
+    
+});    
+</script>      
+      </div><?
+      try {
+	$db = new PDO("mysql:host=$hostname;dbname=$username", $username, $password);	
+	} catch(Exception $e)  {
+	    print "Error!: " . $e->getMessage();
+    }
+	$sth1 = $db->prepare('select * from QMS_users');
+	$sth1->execute();  
+    $userarr = $sth1->fetchAll();
+    $usercnt = Count($userarr);  
+      ?>
+      <div class="col-md-3">
+                <div class="panel panel-primary">
+              <div class="panel-heading">
+                <div class="row">
+                  <div class="col-xs-6">
+                    <i class="glyphicon glyphicon-user" style="font-size:5em;"></i>
+                  </div>
+                  <div class="col-xs-6 text-right">
+                    <p class="announcement-heading"> <span id="usernum" style="color: black;">0</span></p>
+                    <p class="announcement-text"><a href="?m=users" style="color: white">Active Users</a></p>
+                  </div>
+                </div>
+              </div>
+            </div>
+<script>
+$(document).ready(function(){
+   
+    
+    var percent_number_step = $.animateNumber.numberStepFactories.append('')
+$('#usernum').animateNumber(
+  {
+    number: <?=$usercnt?>,
+    color: 'Black',
+    'font-size': '40px',
+
+    easing: 'easeInQuad',
+
+    numberStep: percent_number_step
+  },
+  3000
+);
+
+    
+});    
+</script> 
+      
+      </div>
+      <div class="col-md-3">
+          
+          <?
+      try {
+	$db = new PDO("mysql:host=$hostname;dbname=$username", $username, $password);	
+	} catch(Exception $e)  {
+	    print "Error!: " . $e->getMessage();
+    }
+	$sth2 = $db->prepare('select * from QMS_nav where location = "s"');
+	$sth2->execute();  
+    $catarr = $sth2->fetchAll();
+    $catcnt = Count($catarr);  
+      ?>
+            <div class="panel panel-info">
+              <div class="panel-heading">
+                <div class="row">
+                  <div class="col-xs-6">
+                    <i class="glyphicon glyphicon-ok" style="font-size:5em;"></i>
+                  </div>
+                  <div class="col-xs-6 text-right">
+                    <p class="announcement-heading"> <span id="catnum" style="color: black;">0</span></p>
+                    <p class="announcement-text"><a href="?m=cats">Active Cats</a></p>
+                  </div>
+                </div>
+              </div>
+            </div>
+<script>
+$(document).ready(function(){
+   
+    
+    var percent_number_step = $.animateNumber.numberStepFactories.append('')
+$('#catnum').animateNumber(
+  {
+    number: <?=$catcnt?>,
+    color: 'Black',
+    'font-size': '40px',
+
+    easing: 'easeInQuad',
+
+    numberStep: percent_number_step
+  },
+  3000
+);
+
+    
+});    
+</script> 
+      
+      </div>
+          <div class="col-md-3">
+          
+          <?
+      try {
+	$db = new PDO("mysql:host=$hostname;dbname=$username", $username, $password);	
+	} catch(Exception $e)  {
+	    print "Error!: " . $e->getMessage();
+    }
+	$sth2 = $db->prepare('select * from QMS_Content where doc_uploadedon between DATE_SUB(NOW(), INTERVAL 4 WEEK) AND NOW()');
+	$sth2->execute();  
+    $totarr = $sth2->fetchAll();
+    $totcnt = Count($totarr);  
+      ?>
+            <div class="panel panel-warning">
+              <div class="panel-heading">
+                <div class="row">
+                  <div class="col-xs-6">
+                    <i class="glyphicon glyphicon-refresh" style="font-size:5em;"></i>
+                  </div>
+                  <div class="col-xs-6 text-right">
+                    <p class="announcement-heading"> <span id="totnum" style="color: black;">0</span></p>
+                    <p class="announcement-text">Updates</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+<script>
+$(document).ready(function(){
+   
+    
+    var percent_number_step = $.animateNumber.numberStepFactories.append('')
+$('#totnum').animateNumber(
+  {
+    number: <?=$totcnt?>,
+    color: 'Black',
+    'font-size': '40px',
+
+    easing: 'easeInQuad',
+
+    numberStep: percent_number_step
+  },
+  3000
+);
+
+    
+});    
+</script> 
+      
+      </div>
+      
+    
+      <?php
+         } ?>
+      
 
    </div>
 </div>
@@ -289,26 +501,39 @@ if($_GET['m'] == "docs"){
 <!-- Latest compiled and minified JavaScript --> 
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="//cdn.datatables.net/1.10.7/js/jquery.dataTables.min.js"></script>
+<script src="http://www.hangerworld.co.uk/qms/assets/js/jquery.animateNumber.min.js"></script>
 <script src="//cdn.datatables.net/1.10.7/css/jquery.dataTables.min.css"></script> 
 
 <script>
 $(document).ready(function(){
-    $('#usertable').DataTable();
+    $('[data-toggle="tooltip"]').tooltip(); 
+    $('#usertable').DataTable({"iDisplayLength": 20});
     $('#doctable').DataTable();
+    
+    $("#catfilter").change(function(){
+        var id = $( "#catfilter" ).val();
+        var fullUrl = window.location.href;
+       
+        var filter = "&catfilter="+id;
+        
+        var newURL = fullUrl.split("&",1) + filter;
+      
+        window.location = newURL;
+    });
     $(".editdoc").click(function(){
 		var x = this.id;
-        var datastring = $(".form-horizontal".x).serialize();
+        
         $.ajax({            
         type: "POST",
         url: "../assets/php/editdoc.php",
-        data: datastring,	
+        data: $(".form-horizontal"+x).serialize(),	
         success: function(response){
-        
+            
             $("#update-success"+x).show();
             $("#modal-buttons"+x).hide();
 		    $("#edit-doc-form"+x).hide();
             $("#success-buttons"+x).show();
-                  
+            
     },
         error: function(){
             alert("An error occurred: " & result.errorMessage);
@@ -320,5 +545,3 @@ $(document).ready(function(){
 </script>
 </body>
 </html>
-
-

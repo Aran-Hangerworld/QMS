@@ -3,7 +3,7 @@
         <div class="modal-content">
           <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-            <h4 class="modal-title">Upload a Document</h4>
+            <h4 class="modal-title">Upload a Document Step 1.</h4>
           </div>
           <div class="modal-body">
         <form action="../assets/php/upload.php" class="form" enctype="multipart/form-data" method="POST">  

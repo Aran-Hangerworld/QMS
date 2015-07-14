@@ -4,13 +4,19 @@ include 'PDO.php';
 include 'header.php';
 include 'nav.php';
 $pageid = 'upload';
+?>
 
-if(isset($_FILES) && !isset($_POST['docTitle'])){
+<div class="container">
+
+	<div class="row">
+		<div class="col-md-12">
+
+<?php if(isset($_FILES) && !isset($_POST['docTitle'])){
     $targetfolder = '../../docs/';
     $targetfolder = $targetfolder . basename( $_FILES['file']['name']) ;
     if(move_uploaded_file($_FILES['file']['tmp_name'], $targetfolder)) {
         echo "The file ". basename( $_FILES['file']['name']). " is uploaded";  ?>
-    <form method="POST" action="upload.php">
+    <form method="POST" action="upload.php" role="form" class="form-horizontal">
     <input type="hidden" name="filename" value="<?=$_FILES['file']['name']?>" />
     <input type="hidden" name="filesize" value="<?=$_FILES['file']['size']?>" />
     <input type="hidden" name="filepath" value="http://www.hangerworld.co.uk/qms/docs/" />    
