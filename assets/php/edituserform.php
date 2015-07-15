@@ -41,6 +41,7 @@
                           <input type="checkbox" class="checkbox" id="isactive" name="isactive" <?php if($row['QMS_isactive'] == 1){echo "Checked";}?>  value="1" />
                         </div>
                         </div>
+                        <div class="col-md-12">&nbsp;</div>
                         <div class="form-group">
                         <div class="col-sm-2">
                           <label for="name" class="control-label">Admin</label>
