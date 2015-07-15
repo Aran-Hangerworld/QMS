@@ -11,15 +11,15 @@
                                 <div class="col-sm-2">
                                     <label for="text" class="control-label">Username</label>
                                 </div>
-                                <div class="col-sm-9">
+                                <div class="col-sm-8">
                                     <input type="text" class="form-control" id="username" placeholder="Username" name="username">
                                 </div>
                                 <div class="col-sm-1">
                                     <div id="user-success" style="display:none">
-                                    <span class="glyphicon glyphicon-ok success">&nbsp;</span>
+                                    <span class="glyphicon glyphicon-ok" style="width:50px; height:50px; color:green;">&nbsp;</span>
                                     </div>
                                     <div id="user-failure" style="display:none">
-                                    <span class="glyphicon glyphicon-remove failure">&nbsp;</span>
+                                    <span class="glyphicon glyphicon-remove" style="width:50px; height:50px; color:red;">&nbsp;</span>
                                     </div>
                                 </div>
                             </div>
@@ -51,10 +51,10 @@
                     </div>
                     <div class="modal-footer">
                         <div class="adduser-success" id="adduser-success-msg" style="display:none">
-                            <div class=" alert alert-dissmisable alert-success">
+                            <div class=" alert alert-success">
                             <h3>User Created!</h3>
                             Your password is set to:
-                                <span><?php echo $newpass?> </span>
+                                <span id="passresponse"></span>
                             </div>
                         <a class="btn btn-default" data-dismiss="modal" id="adduser-submit">Add user</a>
                         </div>
@@ -101,6 +101,7 @@
 			 url: "../assets/php/adduser.php",
 			 data: $("#adduserform").serialize(),	
     	     success: function(response){ 
+                 $("#passresponse").text(response);
                 $('#adduser-success-msg').show();
                  $('#modal-buttons').hide();
          	},

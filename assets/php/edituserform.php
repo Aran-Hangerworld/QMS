@@ -1,4 +1,4 @@
-<div class="modal fade in" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true" id="edituserform<?=$row['QMS_id']?>">
+<div class="modal fade in" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true" id="edituserdiv<?=$row['QMS_id']?>">
             <div class="modal-dialog">
               <div class="modal-content">
                 <div class="modal-header ">

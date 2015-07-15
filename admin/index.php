@@ -195,7 +195,7 @@ if($f == 0 || $f == 1){
                     <span class="glyphicon glyphicon-remove" style="font-size:1em"></span> 
                     <?php }?>
                     <?php include'../assets/php/edituserform.php'?>
-                    </td><td><a class="btn-sm btn-warning" data-toggle="modal" id="<?=$row['QMS_id']?>" data-target="#edituserform<?=$row['QMS_id']?>"><span class="glyphicon glyphicon-edit"  style="font-size:1em"></span></a></td></tr>
+                    </td><td><a class="btn-sm btn-warning" data-toggle="modal" id="<?=$row['QMS_id']?>" data-target="#edituserdiv<?=$row['QMS_id']?>"><span class="glyphicon glyphicon-edit"  style="font-size:1em"></span></a></td></tr>
                 
 				<?php } ?>
             </tbody>
@@ -420,7 +420,7 @@ $('#totnum').animateNumber(
 <script>
 $(document).ready(function(){
 
-    $('#usertable').DataTable();
+    $('#usertable').DataTable({"iDisplayLength":100});
     $('#doctable').DataTable();
     $(".editdoc").click(function(){
 		var x = this.id;
