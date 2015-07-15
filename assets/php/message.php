@@ -11,23 +11,21 @@ if(isset($_GET['err'])){
     } elseif($errcode=="101"){
         $errmsg = "LOGIN FAILED. CHECK YOUR CREDENTIALS AND TRY AGAIN";   
     } elseif($errcode="102"){
-        $errmsg = "PLEASE LOG IN TO VIEW DOCUMENTS". $_SESSION['user'];   
+        $errmsg = "PLEASE LOG IN TO VIEW DOCUMENTS";   
                             }?>
-    <div class="alert alert-danger alert-dismissable text-center">
+    <div class="alert alert-danger alert-dismissable text-center" id="messagebox">
 		<?php echo $errmsg; ?>
      		 <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
   		  </div>
 <?php } else {
-
 	$msth = $db->prepare('CALL GetMessage(?)');
 	$msth->bindparam(1, $pt, PDO::PARAM_STR);
 	$msth->execute();
 	while ($row = $msth->fetch()){
 		?>
-		<div class="<?php echo $row['type']?> <?php echo $row['type']?>-warning <?php echo $row['type']?>-dismissable text-center">
+		<div class="<?php echo $row['type']?> <?php echo $row['type']?>-warning <?php echo $row['type']?>-dismissable text-center" id="messagebox">
 		<?php echo $row['message']?>
      		 <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
   		  </div>
 <?php } ?>
-<?php } ?>
-	
+<?php } ?>	

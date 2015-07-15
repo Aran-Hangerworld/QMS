@@ -7,6 +7,7 @@ include '../assets/php/PDO.php';
 include '../assets/php/header.php'; 
 include '../assets/php/nav.php';
 include '../assets/php/functions.php';
+include '../assets/php/reversedate.php';
 $pageid = 'admin';
 try {
 	$db = new PDO("mysql:host=$hostname;dbname=$username", $username, $password);	
@@ -84,7 +85,7 @@ if($_GET['m'] == "docs"){
             <tbody>
       
       <?php while ($row = $sth->fetch()){                ?>
-                      <tr><td><?=$row['doc_id']?></td><td><?=trim($row['doc_title'])?></td><td><?=$row['doc_version']?></td><td><?=$row['doc_uploadedon']?></td><td><?php
+                      <tr><td><?=$row['doc_id']?></td><td><?=trim($row['doc_title'])?></td><td><?=$row['doc_version']?></td><td><?=reverse_date($row['doc_uploadedon'])?></td><td><?php
             $sth1 = $db->prepare('SELECT Title FROM QMS_nav where ID = '. $row['doc_category']);
 	        $sth1->execute();
 	        while ($trow = $sth1->fetch()){
@@ -317,23 +318,17 @@ if($_GET['m'] == "docs"){
             </div>
 <script>
 $(document).ready(function(){
-   
-    
     var percent_number_step = $.animateNumber.numberStepFactories.append('')
 $('#docnum').animateNumber(
   {
     number: <?=$doccnt?>,
     color: 'Black',
     'font-size': '40px',
-
     easing: 'easeInQuad',
-
     numberStep: percent_number_step
   },
   3000
-);
-    
-    
+);    
 });    
 </script>      
       </div><?
@@ -363,29 +358,21 @@ $('#docnum').animateNumber(
             </div>
 <script>
 $(document).ready(function(){
-   
-    
     var percent_number_step = $.animateNumber.numberStepFactories.append('')
 $('#usernum').animateNumber(
   {
     number: <?=$usercnt?>,
     color: 'Black',
     'font-size': '40px',
-
     easing: 'easeInQuad',
-
     numberStep: percent_number_step
   },
   3000
 );
-
-    
 });    
 </script> 
-      
       </div>
       <div class="col-md-3">
-          
           <?
       try {
 	$db = new PDO("mysql:host=$hostname;dbname=$username", $username, $password);	
@@ -412,29 +399,21 @@ $('#usernum').animateNumber(
             </div>
 <script>
 $(document).ready(function(){
-   
-    
-    var percent_number_step = $.animateNumber.numberStepFactories.append('')
+     var percent_number_step = $.animateNumber.numberStepFactories.append('')
 $('#catnum').animateNumber(
   {
     number: <?=$catcnt?>,
     color: 'Black',
     'font-size': '40px',
-
     easing: 'easeInQuad',
-
     numberStep: percent_number_step
   },
   3000
 );
-
-    
 });    
 </script> 
-      
       </div>
           <div class="col-md-3">
-          
           <?
       try {
 	$db = new PDO("mysql:host=$hostname;dbname=$username", $username, $password);	
@@ -480,14 +459,8 @@ $('#totnum').animateNumber(
     
 });    
 </script> 
-      
       </div>
-      
-    
-      <?php
-         } ?>
-      
-
+      <?php } ?>
    </div>
 </div>
 </div>
@@ -502,46 +475,38 @@ $('#totnum').animateNumber(
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="//cdn.datatables.net/1.10.7/js/jquery.dataTables.min.js"></script>
 <script src="http://www.hangerworld.co.uk/qms/assets/js/jquery.animateNumber.min.js"></script>
-<script src="//cdn.datatables.net/1.10.7/css/jquery.dataTables.min.css"></script> 
-
+<script src="//cdn.datatables.net/1.10.7/css/jquery.dataTables.min.css"></script>
 <script>
 $(document).ready(function(){
     $('[data-toggle="tooltip"]').tooltip(); 
     $('#usertable').DataTable({"iDisplayLength": 20});
-    $('#doctable').DataTable();
-    
+    $('#doctable').DataTable({"iDisplayLength": 20});
     $("#catfilter").change(function(){
         var id = $( "#catfilter" ).val();
         var fullUrl = window.location.href;
-       
         var filter = "&catfilter="+id;
-        
         var newURL = fullUrl.split("&",1) + filter;
-      
         window.location = newURL;
     });
     $(".editdoc").click(function(){
 		var x = this.id;
-        
         $.ajax({            
         type: "POST",
         url: "../assets/php/editdoc.php",
         data: $(".form-horizontal"+x).serialize(),	
         success: function(response){
-            
             $("#update-success"+x).show();
             $("#modal-buttons"+x).hide();
 		    $("#edit-doc-form"+x).hide();
             $("#success-buttons"+x).show();
-            
     },
         error: function(){
             alert("An error occurred: " & result.errorMessage);
         }
         });
     });			
-   
 });    
 </script>
 </body>
 </html>
+

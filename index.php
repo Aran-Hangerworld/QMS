@@ -4,7 +4,8 @@
     include 'assets/php/PDO.php'; 
     include 'assets/php/header.php';
     include 'assets/php/loginform.php'; 
-    include 'assets/php/nav.php'; ?>
+    include 'assets/php/nav.php'; 
+?>
 <div class="container">
   <div class="row">
     <div class="col-md-12">
@@ -64,7 +65,8 @@ try {
 		   } catch(Exception $e)  {
 		      print "Error!: " . $e->getMessage();
 	       }
-	       $sthUpdates = $db->prepare('CALL QMS_Updates');
+	       $sthUpdates = $db->prepare('CALL QMS_Updates(?,?)');
+            echo "<h1>".$_SESSION['lastlogin']."</h1><h2>".date('Y-m-d', time())."</h2>";
 	       $sthUpdates->bindparam(1, $_SESSION['lastlogin'], PDO::PARAM_STR);
 	       $sthUpdates->bindparam(2, date( 'Y-m-d', time() ), PDO::PARAM_STR);    
 	       $sthUpdates->execute();  

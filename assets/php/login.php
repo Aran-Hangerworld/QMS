@@ -25,9 +25,9 @@ if (isset($_POST['user']) && isset($_POST['pass'])) {
             $_SESSION['isadmin'] = $row['QMS_isadmin'];  
             $_SESSION['lastlogin'] = $row['QMS_lastlogin'];
             $newlastlogin = date( 'Y-m-d', time());
-            $sth = $db->prepare('Update QMS_users set LastLogin = ? where QMS_user = ?');
-	        $sth->bindparam(1, $myusername, PDO::PARAM_STR);
-            $sth->bindparam(2, $newlastlogin, PDO::PARAM_STR);
+            $sth = $db->prepare("CALL QMS_UpdateLastLogin(?,?)");
+            $sth->bindparam(1, $newlastlogin, PDO::PARAM_STR);
+	        $sth->bindparam(2, $myusername, PDO::PARAM_STR);
 	        $sth->execute();
         } else {
             echo "0";
@@ -35,6 +35,5 @@ if (isset($_POST['user']) && isset($_POST['pass'])) {
     }
 } else {
     echo "No Data Sent";
-    }
-
+}
 ?>

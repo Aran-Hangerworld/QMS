@@ -58,6 +58,7 @@
 			 url: "assets/php/adduser.php",
 			 data: $('form-horizontal').serialize(),	
     	     success: function(response){
+                 alert(response);
                 location.reload(); 
  
          	},
