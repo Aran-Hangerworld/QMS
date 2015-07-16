@@ -176,18 +176,29 @@ if($_GET['m'] == "docs"){
 		</div>
 
 <?php } elseif ($_GET['m'] == "users"){
-    include '../assets/php/adduserform.php';
+   include '../assets/php/adduserform.php';
     try {
 	$db = new PDO("mysql:host=$hostname;dbname=$username", $username, $password);	
 	} catch(Exception $e)  {
 	    print "Error!: " . $e->getMessage();
     }
-    $sth = $db->prepare('select * from QMS_users');
-	$sth->execute();
-	?>
     
+    if(isset($_GET['f'])){
+	$f = $_GET['f'];
+	$f = intval($_GET['f']);
+} else {
+	$f= 1;
+}
+
+if($f == 0 || $f == 1){
+     $q = "select * from QMS_users where QMS_isactive = $f";    
+}
+    $sth = $db->prepare($q);
+    $sth->execute();
+	?>
+    <a class="btn btn-default" data-toggle="modal" data-target="#adduser" style="margin:5px;"><span class="glyphicon glyphicon-plus" style="font-size:1em;"></span>Add a user</a>
+    <a href="?m=users&f=1" class="btn btn-default">Active Users</a><a href="?m=users&f=0" class="btn btn-default">Inactive Users</a>
     <div class="table-responsive">
-       <a class="btn btn-default" data-toggle="modal" data-target="#adduserform" style="position: relative; top:25px; left:400px;"><span class="glyphicon glyphicon-plus" style="font-size:1em;"></span>Add a user</a>
 		<table width="100%" align="center" class="table hover" id="usertable">
         	<thead>
             	<tr><th>ID</th><th>User</th><th>Name</th><th>Email Address</th><th>Last Login</th><th>Admin</th><th>Edit</th></tr>
@@ -195,93 +206,19 @@ if($_GET['m'] == "docs"){
             <tbody>
             	<?php while ($row = $sth->fetch()){ ?>
                 
-                 <div class="modal fade editdoc<?=$row['doc_id']?>" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
-              <div class="modal-content">
-                <div class="modal-header ">
-                  <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                  <h4 class="modal-title">Edit Document</h4>
-                </div>
-                <div class="modal-body row">
-                  <div id="edit-doc-form">
-                    <form class="form-horizontal<?=$row['doc_id']?>" role="form" id="update<?=$row['doc_id']?>">
-                      <input type="hidden" name="id" id="id" value="<?=$row['doc_id']?>">
-                      <div class="form-group">
-                        <div class="col-sm-2">
-                          <label for="username" class="control-label"> Title</label>
-                        </div>
-                        <div class="col-sm-10">
-                          <input type="text" value="<?=$row['doc_title']?>" class="form-control" name="title">
-                        </div>
-                      </div>
-                      <div class="form-group">
-                        <div class="col-sm-2">
-                          <label for="name" class="control-label">Version</label>
-                        </div>
-                        <div class="col-sm-10">
-                          <input type="text" value="<?=$row['doc_version']?>" class="form-control" name="version">
-                        </div>
-                      </div>
-
-                      <?php    
-			$catsth = $db->prepare('select * from QMS_nav where location = "s"'); 
-			$catsth->execute();  
-			?>
-                      <div class="form-group">
-                        <div class="col-sm-2">
-                          <label for="dept" class="control-label">Department</label>
-                        </div>
-                        <div class="col-sm-10">
-                          <select class="form-control" id="category" name="category">
-                            <?php  while ($catrow = $catsth->fetch()){  ?>
-                            
-                              <option value="<?=$catrow['ID']?>" <?php if($row['doc_id'] == $catrow['ID']){ echo "Selected";} ?>>
-                            <?=$catrow['Title']?>
-                            </option>
-                            <?php } ?>
-                          </select>
-                        </div>
-                      </div>
-                      <div class="form-group">
-                        <div class="col-sm-2">
-                          <label for="isadmin" class="control-label">Status (Active)</label>
-                        </div>
-                        <div class="col-sm-10">
-                          <input type="checkbox" class="checkbox" name="isactive" <?php if($row['doc_status'] == 1){echo "Checked";}?>  value="1" />
-                        </div>
-                      </div>
-                        <input type="hidden" name="filename" value="<?=$row['doc_filename']?>"/>
-                        <input type="hidden" name="filepath" value="<?=$row['doc_filepath']?>"/>
-                        <input type="hidden" name="filesize" value="<?=$row['doc_filesize']?>"/>
-                        <input type="hidden" name="uploadedby" value="<?=$row['doc_uploadedby']?>"/>
-                        <input type="hidden" name="uploadedon" value="<?=$row['doc_uploadedon']?>"/>
-                    </form>
-                  </div>
-                </div>
-                <div class="modal-footer">
-                  <div id="success-buttons<?=$row['doc_id']?>" style="display: none">
-                    <div class="alert alert-dimissable alert-success" style="display: none;" id="update-success<?=$row['doc_id']?>">Document Details Changed!</div>
-                    <button type="button" class="btn btn-default refresh" data-dismiss="modal">Continue</button>
-                  </div>
-                  <div id="modal-buttons<?=$row['doc_id']?>">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary editdoc" id="editdoc<?=$row['doc_id']?>">Update</button>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>   
-                <tr><td><?=$row['QMS_id']?></td><td><?=$row['QMS_user']?></td><td><?=$row['QMS_realname']?></td><td><?=$row['QMS_email']?></td><td><?=$row['QMS_lastlogin']?></td><td>
+                
+                <tr id="<?=$row['QMS_id']?>"><td><?=$row['QMS_id']?></td><td><?=$row['QMS_user']?></td><td><?=$row['QMS_realname']?></td><td><?=$row['QMS_email']?></td><td><?=$row['QMS_lastlogin']?></td><td>
                     <?php if($row['QMS_isadmin'] =="1"){ ?><span class="glyphicon glyphicon-ok" style="font-size:1em"></span> 
                     <?php } else { ?>
                     <span class="glyphicon glyphicon-remove" style="font-size:1em"></span> 
-                    <?php } ?>
-                    </td><td><a class="btn-sm btn-warning" id="userbtn"><span class="glyphicon glyphicon-edit" style="font-size:1em"></span></a></td></tr>
+                    <?php }?>
+                    <?php include'../assets/php/edituserform.php'?>
+                    </td><td><a class="btn-sm btn-warning" data-toggle="modal" id="<?=$row['QMS_id']?>" data-target="#edituserdiv<?=$row['QMS_id']?>"><span class="glyphicon glyphicon-edit"  style="font-size:1em"></span></a></td></tr>
+                
 				<?php } ?>
             </tbody>
         </table>
-    </div>
-    
+    </div> 
  <?php
 } elseif ($_GET['m'] == "pages") {
   
@@ -475,12 +412,12 @@ $('#totnum').animateNumber(
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="//cdn.datatables.net/1.10.7/js/jquery.dataTables.min.js"></script>
 <script src="http://www.hangerworld.co.uk/qms/assets/js/jquery.animateNumber.min.js"></script>
-<script src="//cdn.datatables.net/1.10.7/css/jquery.dataTables.min.css"></script>
+<script src="//cdn.datatables.net/1.10.7/css/jquery.dataTables.min.css"></script> 
 <script>
 $(document).ready(function(){
     $('[data-toggle="tooltip"]').tooltip(); 
-    $('#usertable').DataTable({"iDisplayLength": 20});
-    $('#doctable').DataTable({"iDisplayLength": 20});
+    $('#usertable').DataTable({"iDisplayLength": 100});
+    $('#doctable').DataTable({"iDisplayLength": 25});
     $("#catfilter").change(function(){
         var id = $( "#catfilter" ).val();
         var fullUrl = window.location.href;
@@ -504,7 +441,45 @@ $(document).ready(function(){
             alert("An error occurred: " & result.errorMessage);
         }
         });
-    });			
+    });
+    
+    
+    $(".editdoc").click(function(){
+		var x = this.id;
+        var datastring = $(".form-horizontal".x).serialize();
+        $.ajax({            
+        type: "POST",
+        url: "../assets/php/editdoc.php",
+        data: datastring,	
+        success: function(response){
+        
+            $("#update-success"+x).show();
+            $("#modal-buttons"+x).hide();
+		    $("#edit-doc-form"+x).hide();
+            $("#success-buttons"+x).show();
+                  
+    },
+        error: function(){
+            alert("An error occurred: " & result.errorMessage);
+        }
+        });
+    });		
+      
+$(".edituser").click(function(){
+             var x = this.id
+             $.ajax({
+    		 type: "POST",
+			 url: "../assets/php/edituser.php",
+			 data: $(".form-horizontal"+x).serialize(),	
+    	     success: function(response){
+                location.reload(); 
+                $('#update-success'+x).show();
+                 },
+			 error: function(){	
+				alert("An error occurred: " & result.errorMessage);
+			}
+    	 	}); 
+		 });    
 });    
 </script>
 </body>

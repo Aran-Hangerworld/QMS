@@ -1,6 +1,8 @@
 <?php
     session_start();
-	$isadmin = $_SESSION['isadmin'];
+if(isset($_SESSION['isadmin'])){
+    $isadmin = $_SESSION['isadmin'];
+}
     include 'assets/php/PDO.php'; 
     include 'assets/php/header.php';
     include 'assets/php/loginform.php'; 

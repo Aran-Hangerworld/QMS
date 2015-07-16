@@ -5,3 +5,8 @@
   	</div>
   </div>
 </footer>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script> 
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="//cdn.datatables.net/1.10.7/js/jquery.dataTables.min.js"></script>
+<script src="http://www.hangerworld.co.uk/qms/assets/js/jquery.animateNumber.min.js"></script>
+<script src="//cdn.datatables.net/1.10.7/css/jquery.dataTables.min.css"></script>
