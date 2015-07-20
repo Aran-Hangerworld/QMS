@@ -207,7 +207,7 @@ if($f == 0 || $f == 1){
             	<?php while ($row = $sth->fetch()){ ?>
                 
                 
-                <tr id="<?=$row['QMS_id']?>"><td><?=$row['QMS_id']?></td><td><?=$row['QMS_user']?></td><td><?=$row['QMS_realname']?></td><td><?=$row['QMS_email']?></td><td><?=$row['QMS_lastlogin']?></td><td>
+                <tr id="<?=$row['QMS_id']?>"><td><?=$row['QMS_id']?></td><td><?=$row['QMS_user']?></td><td><?=$row['QMS_realname']?></td><td><?=$row['QMS_email']?></td><td><?reverse_date($row['QMS_lastlogin'])?></td><td>
                     <?php if($row['QMS_isadmin'] =="1"){ ?><span class="glyphicon glyphicon-ok" style="font-size:1em"></span> 
                     <?php } else { ?>
                     <span class="glyphicon glyphicon-remove" style="font-size:1em"></span> 
@@ -220,8 +220,49 @@ if($f == 0 || $f == 1){
         </table>
     </div> 
  <?php
-} elseif ($_GET['m'] == "pages") {
-  
+} elseif ($_GET['m'] == "pages") { ?>
+    <div class="">
+    <form class="form-horizontal" role="form" id="pageupdateform">
+                            <div class="form-group">
+                                <div class="col-sm-2">
+                                    <label for="text" class="control-label">Title</label>
+                                </div>
+                                <div class="col-md-12">
+                                    <input type="text" class="form-control" id="pagetitle" placeholder="Title" name="pagetitle">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-sm-2">
+                                    <label for="text" class="control-label">Message</label>
+                                </div>
+                                <div class="col-md-12">
+                                    <textarea type="text" class="form-control" placeholder="Message" id="pagemsg" name="pagemsg"></textarea>
+                                </div>
+                            </div> 
+                            <div class="form-group">
+                                <div class="col-sm-2">
+                                    <label for="text" class="control-label">Subtitle</label>
+                                </div>
+                                <div class="col-md-12">
+                                    <input type="text" class="form-control" id="pagesubtitle" placeholder="Subtitle" name="pagesubtitle">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-sm-2">
+                                    <label for="text" class="control-label">Page Content</label>
+                                </div>
+                                <div class="col-md-12">
+                                    <textarea type="text" class="form-control" id="pagecontent" placeholder="Page Content" name="pagecontent"></textarea>
+                                </div>
+                            </div>
+                            
+                            <div class="pageupdate"> 
+                                <a class="btn btn-success" id="page_update_btn"><span class="glyphicon glyphicon-upload" style="font-size:3em"></span>Update<a>
+                            </div>
+        </form>
+    </div>
+                        
+<?php  
 } elseif ($_GET['m'] == "menus"){
 
 } elseif ($_GET['m'] == "mess"){
@@ -480,6 +521,20 @@ $(".edituser").click(function(){
 			}
     	 	}); 
 		 });    
+    
+$("#page_update_btn").click(function(){
+    alert();
+        $.ajax({
+            type: "POST",
+            url: "../assets/php/pageupdate.php",
+            data: $("#pageupdateform").serialize(),
+            success: function(response){
+                location.reload();
+            },
+             error: function(){	
+				alert("An error occurred: " & result.errorMessage);
+			}
+        });
 });    
 </script>
 </body>
