@@ -41,19 +41,36 @@ try {
 			<tbody>
             	<?php while ($row = $sth->fetch()){ ?>
                 <tr id="tablerow">
-                	<td><a href="http://<?=$row['doc_filepath']?><?=$row['doc_filename']?>" target="_blank"><?=$row['doc_title']?></a></td>
+                	<td><a data-toggle="modal" data-target="#opendocmodal<?=$row['doc_id']?>"><?=$row['doc_title']?></a></td>
                     <td><?=$row['doc_version']?></td>
                     <td><?reverse_date($row['doc_uploadedon'])?></td>
                     <td><?=$row['doc_uploadedby']?></td>
                </tr>
-				<?php } ?>
+               <?php } ?>
                 <div class="alert aler-dismissable alert-warning" style="display:none" id="tablemsg"><span class="glyphicon sm glyphicon-warning-sign"></span>&nbsp;&nbsp;Sorry there is currently no policies to view in <?=$pagetitle?></div>
             </tbody>
         </table>
-        
+             <div class="modal fade in" id="opendocmodal<?=$row['doc_id']?>">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button>
+        <h4 class="modal-title"><?=$row['doc_title']?></h4>
+      </div>
+      <div class="modal-body">
+          <div type="application/pdf" data-target="<?=$row['doc_filepath']." ".$row['doc_filename']?>"></div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+				
 	</div>
    </div>  
-</div>
+    </div>
+
 </div>
 <?php 
 

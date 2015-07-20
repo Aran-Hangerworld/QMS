@@ -221,7 +221,7 @@ if($f == 0 || $f == 1){
     </div> 
  <?php
 } elseif ($_GET['m'] == "pages") { ?>
-    <div class="">
+    <div class="pageupdate">
     <form class="form-horizontal" role="form" id="pageupdateform">
                             <div class="form-group">
                                 <div class="col-sm-2">
@@ -256,8 +256,8 @@ if($f == 0 || $f == 1){
                                 </div>
                             </div>
                             
-                            <div class="pageupdate"> 
-                                <a class="btn btn-success" id="page_update_btn"><span class="glyphicon glyphicon-upload" style="font-size:3em"></span>Update<a>
+                            <div class="pageupdatebtn"> 
+                                <a class="btn btn-success page_update_btn"><span class="glyphicon glyphicon-upload" style="font-size:3em"></span>Update</a>
                             </div>
         </form>
     </div>
@@ -522,8 +522,7 @@ $(".edituser").click(function(){
     	 	}); 
 		 });    
     
-$("#page_update_btn").click(function(){
-    alert();
+$(".page_update_btn").click(function(){
         $.ajax({
             type: "POST",
             url: "../assets/php/pageupdate.php",
@@ -535,7 +534,8 @@ $("#page_update_btn").click(function(){
 				alert("An error occurred: " & result.errorMessage);
 			}
         });
-});    
+    });
+});
 </script>
 </body>
 </html>
