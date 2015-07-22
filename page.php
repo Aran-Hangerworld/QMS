@@ -41,7 +41,7 @@ try {
 			<tbody>
             	<?php while ($row = $sth->fetch()){ ?>
                 <tr id="tablerow">
-                	<td><a data-toggle="modal" data-target="#opendocmodal<?=$row['doc_id']?>"><?=$row['doc_title']?></a></td>
+                	<td><a id="viewdoc" title="<?=$row['doc_title']?>"  href="<?=$row['doc_filepath'].$row['doc_filename']?>"><?=$row['doc_title']?></a></td>
                     <td><?=$row['doc_version']?></td>
                     <td><?reverse_date($row['doc_uploadedon'])?></td>
                     <td><?=$row['doc_uploadedby']?></td>
@@ -50,27 +50,11 @@ try {
                 <div class="alert aler-dismissable alert-warning" style="display:none" id="tablemsg"><span class="glyphicon sm glyphicon-warning-sign"></span>&nbsp;&nbsp;Sorry there is currently no policies to view in <?=$pagetitle?></div>
             </tbody>
         </table>
-             <div class="modal fade in" id="opendocmodal<?=$row['doc_id']?>">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button>
-        <h4 class="modal-title"><?=$row['doc_title']?></h4>
-      </div>
-      <div class="modal-body">
-          <div type="application/pdf" data-target="<?=$row['doc_filepath']." ".$row['doc_filename']?>"></div>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-      </div>
-    </div>
-  </div>
-</div>
+  
 				
 	</div>
    </div>  
     </div>
-
 </div>
 <?php 
 
@@ -85,11 +69,35 @@ $(document).ready(function(){
     
     });
     $('#PageTable').set('strings.emptyMessage', "$('#tablemsg')" );
-    
-    
-    
- });
+});
+</script>
+<script>
+ (function(a){a.createModal=function(b){defaults={title:"",message:"",closeButton:true,scrollable:false};var b=a.extend({},defaults,b);var c=(b.scrollable===true)?'style=overflow-y: auto;"':"";html='<div class="modal fade" id="pdfModal">';html+='<div class="modal-dialog">';html+='<div class="modal-content">';html+='<div class="modal-header">';html+='<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>';if(b.title.length>0){html+='<h4 class="modal-title">'+b.title+"</h4>"}html+="</div>";html+='<div class="modal-body" '+c+">";html+=b.message;html+="</div>";html+='<div class="modal-footer">';if(b.closeButton===true){html+='<button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>'}html+="</div>";html+="</div>";html+="</div>";html+="</div>";a("body").prepend(html);a("#pdfModal").modal().on("hidden.bs.modal",function(){a(this).remove()})}})(jQuery);
 
+
+/*
+* Here is how you use it
+*/$('#viewdoc').on('click',function(){
+    alert();
+        var pdf_link = $(this).attr('href');
+    alert(pdf_link);
+        var pdf_title = $(this).attr('title');
+        var iframe = '<div class="iframe-container"><iframe src="'+pdf_link+'"></iframe></div>'
+        $.createModal({
+        title:pdf_title,
+        message: iframe,
+        closeButton:true,
+        scrollable:false
+        });
+        return false;        
+    });    
+document.ready(function(){    
+    
+});
+
+   
+
+  
 </script>
 </body>
 </html>
