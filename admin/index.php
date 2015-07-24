@@ -506,21 +506,7 @@ $(document).ready(function(){
         });
     });		
       
-$(".edituser").click(function(){
-             var x = this.id
-             $.ajax({
-    		 type: "POST",
-			 url: "../assets/php/edituser.php",
-			 data: $(".form-horizontal"+x).serialize(),	
-    	     success: function(response){
-                location.reload(); 
-                $('#update-success'+x).show();
-                 },
-			 error: function(){	
-				alert("An error occurred: " & result.errorMessage);
-			}
-    	 	}); 
-		 });    
+
     
 $(".page_update_btn").click(function(){
         $.ajax({

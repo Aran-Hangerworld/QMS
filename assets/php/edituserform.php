@@ -53,12 +53,17 @@
                     </form>
                   </div>
                 </div>
-                <div class="modal-footer" id="upade-success">
-                  <div id="success-buttons<?=$row['QMS_id']?>" style="display: none">
-                    <div class="alert alert-dimissable alert-success" style="display: none;" id="update<?=$row['QMS_id']?>">User Details Changed!</div>
-                    <button type="button" class="btn btn-default refresh" data-dismiss="modal">Continue</button>
-                  </div>
+                <div class="modal-footer" >
+                    <div class="changepass-success" id="changepass-success-msg" style="display:none">
+                            <div class=" alert alert-success">
+                            <h3>Password Updated!</h3>
+                            Password is set to:
+                                <span id="passresponse1"></span>
+                            </div>
+                        <a class="btn btn-default" data-dismiss="modal" id="changepassclosebtn" >Close</a>
+                        </div>
                   <div id="modal-buttons">
+                      <button type="button" class="btn btn-danger changepass" id="resetpass <?=$row['QMS_id']?>">Reset Password</button>
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                     <button type="button" class="btn btn-primary edituser" id="<?=$row['QMS_id']?>">Update</button>
                   </div>
@@ -66,3 +71,44 @@
               </div>
             </div>
           </div>
+<script>
+    $(".edituser").click(function(){
+             var x = this.id
+             $.ajax({
+    		 type: "POST",
+			 url: "../assets/php/edituser.php",
+			 data: $(".form-horizontal"+x).serialize(),	
+    	     success: function(response){
+                location.reload(); 
+                $('#user-success'+x).show();
+                 },
+			 error: function(){	
+				alert("An error occurred: " & result.errorMessage);
+			}
+    	 	}); 
+		 });
+    
+$(".changepass").click(function(){
+         var y = this.id
+         $.ajax({
+		 type: "POST",
+         url: "../assets/php/changepass.php",
+		 data: $(".form-horizontal"+y).serialize(),	
+    	 success: function(response){
+             location.reload(); 
+             alert(response);
+              $('#changepass-success-msg'+y).show();
+              $("#passresponse1").text(response);
+                 $('#modal-buttons').hide();
+                 },
+			 error: function(){	
+				alert("An error occurred: " & result.errorMessage);
+			}
+    	 	}); 
+		 }); 
+$("#changepassclosebtn").click(function(){
+ location.reload();   
+});
+
+
+</script>
