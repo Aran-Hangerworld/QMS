@@ -63,7 +63,7 @@
                         <a class="btn btn-default" data-dismiss="modal" id="changepassclosebtn" >Close</a>
                         </div>
                   <div id="modal-buttons">
-                      <button type="button" class="btn btn-danger changepass" id="resetpass <?=$row['QMS_id']?>">Reset Password</button>
+                      <button type="button" class="btn btn-danger changepass" id="<?=$row['QMS_id']?>">Reset Password</button>
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                     <button type="button" class="btn btn-primary edituser" id="<?=$row['QMS_id']?>">Update</button>
                   </div>
@@ -96,7 +96,6 @@ $(".changepass").click(function(){
 		 data: $(".form-horizontal"+y).serialize(),	
     	 success: function(response){
              location.reload(); 
-             alert(response);
               $('#changepass-success-msg'+y).show();
               $("#passresponse1").text(response);
                  $('#modal-buttons').hide();
