@@ -1,6 +1,7 @@
 <?php
 session_start();
 if (isset($_POST['username'])) {
+    echo $_POST['username'];
     include 'PDO.php';
     include 'functions.php';
     $lusername = strip_tags($_POST['username']);
@@ -33,7 +34,7 @@ if (isset($_POST['username'])) {
     $sth->bindparam(4, $isadmin,  PDO::PARAM_INT);
     $sth->bindparam(5, $email, PDO::PARAM_STR);
     $sth->bindparam(6, $company, PDO::PARAM_STR);
-    $sth->bindparam(7, $isactive, PDO::PARAM_STR);
+    $sth->bindparam(7, $isactive, PDO::PARAM_INT);
 	$sth->execute();
 	
 	# Email confirm

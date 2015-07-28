@@ -47,23 +47,20 @@
                           <label for="name" class="control-label">Admin</label>
                         </div>
                         <div class="col-sm-10">
-                          <input type="checkbox" class="checkbox" value="<?=$row['QMS_isadmin']?>" <?php if($row['QMS_isadmin'] == 1){echo "Checked";}?>  value="1" >
+                          <input type="checkbox" class="checkbox" id="isadmin" name="isadmin" <?php if($row['QMS_isadmin'] == 1){echo "Checked";}?>  value="1" />
                         </div>
                       </div>
                     </form>
                   </div>
                 </div>
                 <div class="modal-footer" >
-                    <div class="changepass-success" id="changepass-success-msg" style="display:none">
-                            <div class=" alert alert-success">
-                            <h3>Password Updated!</h3>
+                    <div class=" alert alert-success changepass-success-msg"style="display:none">
+                        <h3>Password Updated!</h3>
                             Password is set to:
-                                <span id="passresponse1"></span>
-                            </div>
-                        <a class="btn btn-default" data-dismiss="modal" id="changepassclosebtn" >Close</a>
+                         <span id="passresponse1"></span>
                         </div>
                   <div id="modal-buttons">
-                      <button type="button" class="btn btn-danger changepass" id="<?=$row['QMS_id']?>">Reset Password</button>
+                    <button type="button" class="btn btn-danger resetpass" id="<?=$row['QMS_id']?>">Reset Password</button>
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                     <button type="button" class="btn btn-primary edituser" id="<?=$row['QMS_id']?>">Update</button>
                   </div>
@@ -72,6 +69,10 @@
             </div>
           </div>
 <script>
+    $(document).ready(function(){
+                      
+    $(".changepass-success-msg").hide();
+                      
     $(".edituser").click(function(){
              var x = this.id
              $.ajax({
@@ -86,28 +87,23 @@
 				alert("An error occurred: " & result.errorMessage);
 			}
     	 	}); 
-		 });
-    
-$(".changepass").click(function(){
-         var y = this.id
+		 });   
+$(".resetpass").click(function(){
          $.ajax({
 		 type: "POST",
          url: "../assets/php/changepass.php",
-		 data: $(".form-horizontal"+y).serialize(),	
-    	 success: function(response){
-             location.reload(); 
-              $('#changepass-success-msg'+y).show();
-              $("#passresponse1").text(response);
-                 $('#modal-buttons').hide();
+		 data: $(".form-horizontal").serialize(),	
+    	 success: function(response){ 
+             alert(response);
+                $('#passresponse1').text(response);
+                $('.changepass-success-msg').show();
+                $('#modal-buttons').hide();
+             location.reload();
                  },
 			 error: function(){	
 				alert("An error occurred: " & result.errorMessage);
 			}
     	 	}); 
 		 }); 
-$("#changepassclosebtn").click(function(){
- location.reload();   
-});
-
-
+    });
 </script>

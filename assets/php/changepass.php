@@ -6,7 +6,6 @@ if(isset($_POST['id'])){
 	$num = rand(10,99);
 	$newpasshash = md5(trim($response) . $num);
 	$newpass = trim($response) . $num;
-	echo $newpass;
 	$userid = $_POST['id'];
 	try {
 			$db = new PDO("mysql:host=$hostname;dbname=$username", $username, $password);	
@@ -22,9 +21,9 @@ if(isset($_POST['id'])){
 	$msg = "Hi $rname,\r\n Your password has successfully been reset for the Hangerworld Support website. Your new login details are below.\r\n Username: $lusername \r\n Password: $newpass \r\n Log in via http://www.hangerworld.co.uk/qms/ \r\n Regards \r\n IT Dept.";
 	$headers = ""; 
 #mail($email,$sub,$msg,$headers);
-	echo $newpass;
+
  
 } else {
-echo "Oops - "; echo $userid;
+echo "Oops";
 }
 ?>
