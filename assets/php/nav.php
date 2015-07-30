@@ -34,6 +34,7 @@ try {
     <?php if($_SESSION['isadmin']){ ?>
    
         <li><button class="btn-sm btn-warning" onclick="location.href='/qms/admin/index.php'"><span class="glyphicon glyphicon-user sm">&nbsp;</span>Admin</button></li>
+        <li><button class="btn-sm btn-default" onclick="location.href='/admin/ben/qms/admin/ittraining.php'"><span class="glyphicon glyphicon-user sm">&nbsp;</span>IT Training</button></li>
 		</ul></div>
     <?php } ?>
 <?php } ?>
