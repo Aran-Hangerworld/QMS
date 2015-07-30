@@ -8,7 +8,7 @@
                 <div class="modal-body">
                   <div id="edit-user-form" class="row">
                     <form class="form-horizontal<?=$row['QMS_id']?>" role="form" id="edituserform<?=$row['QMS_id']?>">
-                      <input type="hidden" name="id" id="id" value="<?=$row['QMS_id']?>">
+                      <input type="hidden" name="id" value="<?=$row['QMS_id']?>">
                       <div class="form-group">
                         <div class="col-sm-2">
                           <label for="username" class="control-label">Username</label>
